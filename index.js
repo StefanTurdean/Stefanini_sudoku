@@ -1,6 +1,7 @@
 import createElem from "./components/createElem.js";
 import sudokuInfo from "./components/sudokuInfo.js";
-import sudokuGame from "./components/sudokuGame.js"
+import sudokuGame from "./components/sudokuGame.js";
+import sudokuControls from "./components/sudokuControls.js";
 
 const app = document.getElementById("app");
 
@@ -15,100 +16,81 @@ loadingScreen.classList.add("loading-screen");
 loadingScreen.id = "loading-screen";
 sudokuWraper.appendChild(loadingScreen);
 
-// start info section
+// info section
+sudokuWraper.appendChild(sudokuInfo);
 
-sudokuWraper.appendChild(sudokuInfo)
-
-// sudoku game
-
-
+// sudoku game wraper
 const sudokuGameWraper = document.createElement("div");
 sudokuGameWraper.classList.add("sudoku-game-wraper");
 sudokuGameWraper.id = "sudoku-game-wraper";
 sudokuWraper.appendChild(sudokuGameWraper);
 
-sudokuGameWraper.appendChild(sudokuGame)
-
-// const sudokuGame = document.createElement("div");
-// sudokuGame.classList.add("sudoku-game");
-// sudokuGame.id = "sudoku-game";
-// sudokuGameWraper.appendChild(sudokuGame);
-
-// for (let i = 1; i < 10; i++) {
-//   const sudokuGrid = document.createElement("div");
-//   sudokuGrid.classList.add("sudoku-grid");
-//   sudokuGrid.id = `sudoku-grid-${i}`;
-
-//   for (let j = 1; j < 10; j++) {
-//     const sudokuCell = document.createElement("div");
-//     sudokuCell.classList.add("sudoku-cell");
-//     sudokuCell.innerText = `${j}`;
-//     sudokuGrid.appendChild(sudokuCell);
-//   }
-
-//   sudokuGame.appendChild(sudokuGrid);
-// }
+// sudoku game
+sudokuGameWraper.appendChild(sudokuGame);
 
 // controlls
-const sudokuControls = document.createElement("div");
-sudokuControls.classList.add("sudoku-controls");
-sudokuControls.id = "sudoku-controls";
-sudokuGameWraper.appendChild(sudokuControls);
 
-// controls items
-const sudokuControlItems = document.createElement("div");
-sudokuControlItems.classList.add("sudoku-control-items");
-sudokuControls.appendChild(sudokuControlItems);
+sudokuGameWraper.appendChild(sudokuControls)
 
-//  undo
+// const sudokuControls = document.createElement("div");
+// sudokuControls.classList.add("sudoku-controls");
+// sudokuControls.id = "sudoku-controls";
+// sudokuGameWraper.appendChild(sudokuControls);
 
-const sudokuUndoWraper = document.createElement("div");
-sudokuUndoWraper.classList.add("control-item");
-sudokuControlItems.appendChild(sudokuUndoWraper);
+// // controls items
+// const sudokuControlItems = document.createElement("div");
+// sudokuControlItems.classList.add("sudoku-control-items");
+// sudokuControls.appendChild(sudokuControlItems);
 
-const undoBtn = document.createElement("button");
-undoBtn.innerText = "undobtn";
-sudokuUndoWraper.appendChild(undoBtn);
+// //  undo
 
-// erase
+// const sudokuUndoWraper = document.createElement("div");
+// sudokuUndoWraper.classList.add("control-item");
+// sudokuControlItems.appendChild(sudokuUndoWraper);
 
-const sudokuEraseWraper = document.createElement("div");
-sudokuEraseWraper.classList.add("control-item");
-sudokuControlItems.appendChild(sudokuEraseWraper);
+// const undoBtn = document.createElement("button");
+// undoBtn.innerText = "undobtn";
+// sudokuUndoWraper.appendChild(undoBtn);
 
-const eraseBtn = document.createElement("button");
-eraseBtn.innerText = "eraseBtn";
-sudokuEraseWraper.appendChild(eraseBtn);
+// // erase
 
-// notes
+// const sudokuEraseWraper = document.createElement("div");
+// sudokuEraseWraper.classList.add("control-item");
+// sudokuControlItems.appendChild(sudokuEraseWraper);
 
-const sudokuNotesWraper = document.createElement("div");
-sudokuNotesWraper.classList.add("control-item");
-sudokuControlItems.appendChild(sudokuNotesWraper);
+// const eraseBtn = document.createElement("button");
+// eraseBtn.innerText = "eraseBtn";
+// sudokuEraseWraper.appendChild(eraseBtn);
 
-const notesBtn = document.createElement("button");
-notesBtn.innerText = "notesBtn";
-sudokuNotesWraper.appendChild(notesBtn);
+// // notes
 
-// numpad
+// const sudokuNotesWraper = document.createElement("div");
+// sudokuNotesWraper.classList.add("control-item");
+// sudokuControlItems.appendChild(sudokuNotesWraper);
 
-const sudokuNumpad = document.createElement("div");
-sudokuNumpad.id = "sudoku-numpad";
-sudokuNumpad.classList.add("sudoku-numpad");
-sudokuControls.appendChild(sudokuNumpad);
+// const notesBtn = document.createElement("button");
+// notesBtn.innerText = "notesBtn";
+// sudokuNotesWraper.appendChild(notesBtn);
 
-for (let i = 1; i < 10; i++) {
-  const numBtn = document.createElement("button");
-  numBtn.id = `numBtn-${i}`;
-  numBtn.classList.add("sudoku-num-btn");
-  numBtn.innerText = `${i}`;
+// // numpad
 
-  sudokuNumpad.appendChild(numBtn);
-}
+// const sudokuNumpad = document.createElement("div");
+// sudokuNumpad.id = "sudoku-numpad";
+// sudokuNumpad.classList.add("sudoku-numpad");
+// sudokuControls.appendChild(sudokuNumpad);
 
-// new game Btn
-const sudokuNewGameBtn = document.createElement("button");
-sudokuNewGameBtn.innerHTML = "NEW GAME";
-sudokuNewGameBtn.id = "sudoku-new-game-btn";
-sudokuNewGameBtn.classList.add("sudoku-new-game-btn");
-sudokuControls.appendChild(sudokuNewGameBtn);
+// for (let i = 1; i < 10; i++) {
+//   const numBtn = document.createElement("button");
+//   numBtn.id = `numBtn-${i}`;
+//   numBtn.classList.add("sudoku-num-btn");
+//   numBtn.innerText = `${i}`;
+
+//   sudokuNumpad.appendChild(numBtn);
+// }
+
+// // new game Btn
+// const sudokuNewGameBtn = document.createElement("button");
+// sudokuNewGameBtn.innerHTML = "NEW GAME";
+// sudokuNewGameBtn.id = "sudoku-new-game-btn";
+// sudokuNewGameBtn.classList.add("sudoku-new-game-btn");
+// sudokuControls.appendChild(sudokuNewGameBtn);
