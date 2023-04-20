@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sudoku-wraper {
+  width: 100%;
+  height: 100%;
+  max-height: 520px;
+  max-width: 860px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sudoku-timer-wraper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.sudoku-game-wraper {
+  width: 100%;
+  height: 100%;
+  max-height: 500;
+  display: flex;
+}
+
+/* sudoku grid */
+.sudoku-game {
+  width: 100%;
+  height: auto;
+  max-width: 500px;
+  max-height: 500px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.sudoku-grid {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  border: 0.5px solid black;
+}
+
+.sudoku-cell {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  border: 0.5px solid lightgray;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 30px;
+}
+
+.sudoku-controls {
+  width: 100%;
+  height: 100%;
+  max-width: 360px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sudoku-numpad {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  max-height: 350px;
+  height: 100%;
+}
+
+.sudoku-num-btn {
+
+    font-size: 35px;
+    
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    color: #0072e3;
+    cursor: pointer;
+    margin: 5px;
+    background-color: #eaeef4;
+}
+
+.sudoku-new-game-btn {
+  border: none;
+  height: 60px;
+  border-radius: 5px;
+  background-color: #0072e3;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
