@@ -7,6 +7,7 @@
 html,
 body {
   height: 100%;
+  font-family: "Helvetica", Sans-Serif;
 }
 
 #app {
@@ -29,7 +30,33 @@ body {
 
 .sudoku-timer-wraper {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding: 0 30px;
+}
+
+.sudoku-timer-background-helper {
+  width: 25px;
+  height: 25px;
+  background: #eaeef4;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+.sudoku-timer-background-helper:hover {
+  background-color: #dce3ed;
+}
+
+.sudoku-timer-icon {
+  width: 75%;
+  height: 75%;
+  background-image: url("/img/211871_pause_icon.png");
+  background-size: contain;
+  background-position: center;
 }
 
 .sudoku-game-wraper {
@@ -64,19 +91,70 @@ body {
   height: auto;
   padding: 10px;
   border: 0.5px solid lightgray;
+  background-color: #fff;
   text-align: center;
   vertical-align: middle;
   font-size: 30px;
 }
-
+/*  controls */
 .sudoku-controls {
   width: 100%;
   height: 100%;
   max-width: 360px;
-  padding: 0 20px;
+  padding: 10px 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.sudoku-controls-items-wraper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.control-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #0072e3;
+}
+
+.control-item-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaeef4;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.control-item-background:hover {
+  background-color: #dce3ed;
+}
+
+.control-item-icon {
+  width: 50%;
+  height: 50%;
+}
+
+#control-item-undo {
+  background: url("/img/undo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#control-item-erase {
+  background: url("/img/eraser.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#control-item-notes {
+  background: url("/img/notes.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .sudoku-numpad {
@@ -89,18 +167,22 @@ body {
 }
 
 .sudoku-num-btn {
+  font-size: 35px;
 
-    font-size: 35px;
-    
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    color: #0072e3;
-    cursor: pointer;
-    margin: 5px;
-    background-color: #eaeef4;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  color: #0072e3;
+  cursor: pointer;
+  margin: 5px;
+  background-color: #eaeef4;
 }
 
+.sudoku-num-btn:hover {
+  background-color: #dce3ed;
+}
+
+/* new game */
 .sudoku-new-game-btn {
   border: none;
   height: 60px;
@@ -110,4 +192,8 @@ body {
   font-weight: 600;
   color: #fff;
   cursor: pointer;
+}
+
+.sudoku-new-game-btn:hover {
+  background-color: #0065c8;
 }
