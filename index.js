@@ -1,39 +1,39 @@
-import sudokuTimer from "./components/sudokuTimer.js";
-import sudokuControls from "./components/sudokuControls.js";
-import sudokuGameGrid from "./components/sudokuGameGrid.js";
+import createTimeSection from "./components/sudokuTimer.js";
+import createDomElement from "./components/createDomElement.js";
+import createSudokuGameWraper from "./components/sudokuGameWraper.js";
+
+function createLayoutElements() {
+  const layoutOrder = [];
+
+  const timeSection = createTimeSection("div", "sudoku-info");
+
+  const sudokuGameWraper = createSudokuGameWraper(
+    "div",
+    "sudoku-game-wraper",
+    "sudoku-game-wraper"
+  );
+
+  layoutOrder.push(timeSection);
+  layoutOrder.push(sudokuGameWraper);
+
+  return layoutOrder;
+}
+
+function generateLeyout(leyoutOrderArr, parentElement) {
+  const sudokuWraper = createDomElement("div", "sudoku-wraper")
+
+  for (let i = 0; i < leyoutOrderArr.length; i++) {
+    sudokuWraper.appendChild(leyoutOrderArr[i]);
+  }
+
+  parentElement.appendChild(sudokuWraper);
+}
 
 const app = document.getElementById("app");
+const layoutOrder = createLayoutElements();
 
-// game wraper
-const sudokuWraper = document.createElement("div");
-sudokuWraper.classList.add("sudoku-wraper");
-app.appendChild(sudokuWraper);
-
-// loading screen
-const loadingScreen = document.createElement("div");
-loadingScreen.classList.add("loading-screen");
-loadingScreen.id = "loading-screen";
-sudokuWraper.appendChild(loadingScreen);
-
-
-// info section
-sudokuWraper.appendChild(sudokuTimer);
-
-// sudoku game wraper
-const sudokuGameWraper = document.createElement("div");
-sudokuGameWraper.classList.add("sudoku-game-wraper");
-sudokuGameWraper.id = "sudoku-game-wraper";
-sudokuWraper.appendChild(sudokuGameWraper);
-
-// sudoku game
-sudokuGameWraper.appendChild(sudokuGameGrid);
-
-
-// controlls
-sudokuGameWraper.appendChild(sudokuControls)
+generateLeyout(layoutOrder, app);
 
 // create a funtion to call all creates funtions
-
-
 // create a funtion to generate the layout
 // create function that takes an arr with the append order

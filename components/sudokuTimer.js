@@ -1,19 +1,15 @@
 import createDomElement from "./createDomElement.js";
 
-const sudokuTimer = createDomElement("div", "sudoku-info");
-
 // rename asdass info to timer!!!
 
 // timer section
 
-createTimeSection();
-
-function createTimeSection() {
+function createTimeWraper(parentElement) {
   const sudokuTimerWraper = createDomElement(
     "div",
     "sudoku-timer-wraper",
     "",
-    sudokuTimer
+    parentElement
   );
 
   // timer text span
@@ -43,4 +39,12 @@ function createTimeSection() {
   );
 }
 
-export default sudokuTimer;
+function createTimeElement(elementType, className) {
+  const sudokuTimer = createDomElement(`${elementType}`, `${className}`);
+
+  createTimeWraper(sudokuTimer);
+
+  return sudokuTimer;
+}
+
+export default createTimeElement;

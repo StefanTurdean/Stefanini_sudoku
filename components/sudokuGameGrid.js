@@ -1,19 +1,13 @@
 import createDomElement from "./createDomElement.js";
 
-// asdasda RENAME TO SUDOKU GRID
-// rename sudokuGame to sudokuGameGrid
 
-const sudokuGameGrid = createDomElement("div", "sudoku-game", "sudoku-game");
-
-createSudokuGrid();
-
-function createSudokuGrid() {
+function createSudokuGrid(parentElement) {
   for (let i = 1; i < 10; i++) {
     const sudokuGrid = createDomElement(
       "div",
       "sudoku-grid",
       `sudoku-grid-${i}`,
-      sudokuGameGrid
+      parentElement
     );
 
     for (let j = 1; j < 10; j++) {
@@ -28,4 +22,12 @@ function createSudokuGrid() {
   }
 }
 
-export default sudokuGameGrid;
+function createSudokuGridElement(elementType, className, id) {
+  const sudokuGameGrid = createDomElement(`${elementType}`, `${className}` , `${id}`);
+
+  createSudokuGrid(sudokuGameGrid);  
+
+  return sudokuGameGrid
+}
+
+export default createSudokuGridElement;
