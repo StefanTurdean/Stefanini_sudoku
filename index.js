@@ -3,7 +3,6 @@ import createDomElement from "./components/createDomElement.js";
 import createSudokuGameWraper from "./components/sudokuGameWraper.js";
 
 function createLayoutElements() {
-  const layoutOrder = [];
 
   const timeSection = createTimeSection("div", "sudoku-info");
 
@@ -13,27 +12,26 @@ function createLayoutElements() {
     "sudoku-game-wraper"
   );
 
-  layoutOrder.push(timeSection);
-  layoutOrder.push(sudokuGameWraper);
-
-  return layoutOrder;
+  return [timeSection, sudokuGameWraper];
 }
 
-function generateLeyout(leyoutOrderArr, parentElement) {
-  const sudokuWraper = createDomElement("div", "sudoku-wraper")
+function generateLayout(layoutElements, rootElement) {
+  const sudokuWraper = createDomElement("div", "sudoku-wraper");
 
-  for (let i = 0; i < leyoutOrderArr.length; i++) {
-    sudokuWraper.appendChild(leyoutOrderArr[i]);
+  for (let i = 0; i < layoutElements.length; i++) {
+    sudokuWraper.appendChild(layoutElements[i]);
   }
 
-  parentElement.appendChild(sudokuWraper);
+  rootElement.appendChild(sudokuWraper);
 }
 
+
+
+
 const app = document.getElementById("app");
-const layoutOrder = createLayoutElements();
+const layoutElements = createLayoutElements();
 
-generateLeyout(layoutOrder, app);
+generateLayout(layoutElements, app);
 
-// create a funtion to call all creates funtions
-// create a funtion to generate the layout
-// create function that takes an arr with the append order
+
+// makepuzzle()

@@ -1,7 +1,5 @@
 import createDomElement from "./createDomElement.js";
 
-
-
 function createControlIcons(parentElement) {
   const sudokuControlItemsWraper = createDomElement(
     "div",

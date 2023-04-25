@@ -1,21 +1,21 @@
 const createDomElement = (
   elementType,
-  elemClass = null,
-  elemId = null,
-  elemParent = null
+  elemementClass = null,
+  elementId = null,
+  elementParent = null
 ) => {
   const newElem = document.createElement(elementType);
 
-  if (elemClass) {
-    newElem.classList.add(elemClass);
+  if (elemementClass) {
+    newElem.classList.add(elemementClass);
   }
 
-  if (elemId) {
-    newElem.id = elemId;
+  if (elementId) {
+    newElem.id = elementId;
   }
 
-  if (elemParent) {
-    elemParent.appendChild(newElem);
+  if (elementParent) {
+    elementParent.appendChild(newElem);
   }
 
   return newElem;
