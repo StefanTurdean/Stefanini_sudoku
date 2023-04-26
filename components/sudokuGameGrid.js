@@ -4,7 +4,7 @@ import createDomElement from "./createDomElement.js";
 
 function convertStringToGridArray(string) {
   const stringArray = [];
-  const gridArray = []
+  const gridArray = [];
 
   for (let i = 0; i < string.length; i += 3) {
     const stringSliced = string.slice(i, i + 3);
@@ -25,22 +25,21 @@ function convertStringToGridArray(string) {
     }
   }
 
-  return gridArray
+  return gridArray;
 }
 
-function generateSudokuNumbersId() {
-  
+function generateSudokuNumbersId(sudokuNumbers) {
   let sudokuNumbersIdString = [];
 
-  for (let i = 0; i < sudokuNumbers.numbers.length; i++) {
-    const temps = sudokuNumbers.numbers;
+  for (let i = 0; i < sudokuNumbers.length; i++) {
+    const temps = sudokuNumbers;
 
     for (let j = 0; j < temps.length; j++) {
       sudokuNumbersIdString.push(`${i + 1}-${j + 1}`);
     }
   }
- 
-  return sudokuNumbersIdString
+
+  return convertStringToGridArray(sudokuNumbersIdString);
 }
 
 function createSudokuGrid(parentElement) {
@@ -48,25 +47,14 @@ function createSudokuGrid(parentElement) {
   console.log(sudokuString);
 
   let sudokuNumbers = {
-    numbers: convertStringToGridArray(sudokuString),
+    numbers: [],
     numbersId: [],
   };
 
   console.log(sudokuNumbers.numbers);
 
-  sudokuNumbers.numbers = convertStringToGridArray(sudokuString)
-
-  let sudokuNumbersIdString = [];
-
-  for (let i = 0; i < sudokuNumbers.numbers.length; i++) {
-    const temps = sudokuNumbers.numbers;
-
-    for (let j = 0; j < temps.length; j++) {
-      sudokuNumbersIdString.push(`${i + 1}-${j + 1}`);
-    }
-  }
-
-  sudokuNumbers.numbersId = convertStringToGridArray(sudokuNumbersIdString)
+  sudokuNumbers.numbers = convertStringToGridArray(sudokuString);
+  sudokuNumbers.numbersId = generateSudokuNumbersId(sudokuNumbers.numbers);
 
   for (let i = 0; i < sudokuNumbers.numbers.length; i++) {
     let k = 0;
@@ -87,7 +75,6 @@ function createSudokuGrid(parentElement) {
 
       sudokuCell.innerText = sudokuNumbers.numbers[i][k][j % 3];
       sudokuCell.id = sudokuNumbers.numbersId[i][k][j % 3];
-
     }
   }
 }
