@@ -4,21 +4,23 @@ const createDomElement = (
   elementId = null,
   elementParent = null
 ) => {
-  const newElem = document.createElement(elementType);
+  const newElement = document.createElement(elementType);
 
   if (elemementClass) {
-    newElem.classList.add(elemementClass);
+    newElement.classList.add(elemementClass);
   }
 
   if (elementId) {
-    newElem.id = elementId;
+    newElement.id = elementId;
   }
 
   if (elementParent) {
-    elementParent.appendChild(newElem);
+    elementParent.appendChild(newElement);
+
+    //  rename to ELEMENT ^
   }
 
-  return newElem;
+  return newElement;
 };
 
 export default createDomElement;

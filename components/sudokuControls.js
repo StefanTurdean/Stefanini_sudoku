@@ -82,7 +82,7 @@ function createNewGameBtn(parentElement) {
 }
 
 function createControlElement(elementType, className) {
-  const sudokuControls = createDomElement(`${elementType}`, `${className}`);
+  const sudokuControls = createDomElement(elementType, className);
 
   createControlIcons(sudokuControls);
   createNumpad(sudokuControls);

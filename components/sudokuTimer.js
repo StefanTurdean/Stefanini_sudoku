@@ -1,9 +1,5 @@
 import createDomElement from "./createDomElement.js";
 
-// rename asdass info to timer!!!
-
-// timer section
-
 function createTimeWraper(parentElement) {
   const sudokuTimerWraper = createDomElement(
     "div",

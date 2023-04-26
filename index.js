@@ -33,5 +33,3 @@ const layoutElements = createLayoutElements();
 
 generateLayout(layoutElements, app);
 
-
-// makepuzzle()
