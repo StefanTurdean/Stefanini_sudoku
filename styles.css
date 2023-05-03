@@ -95,7 +95,22 @@ body {
   text-align: center;
   vertical-align: middle;
   font-size: 30px;
+  color: blue;
+  cursor: pointer;
 }
+
+.highLight {
+  background-color: lightblue;
+}
+
+.highLightStrong {
+  background-color: purple;
+}
+
+.locked {
+  color: black;
+}
+
 /*  controls */
 .sudoku-controls {
   width: 100%;
@@ -120,7 +135,7 @@ body {
   color: #0072e3;
 }
 
-.control-item-background {
+.control-item-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,17 +156,17 @@ body {
   height: 50%;
 }
 
-#control-item-undo {
+#control-item-icon-undo {
   background: url("/img/undo.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
-#control-item-erase {
+#control-item-icon-erase {
   background: url("/img/eraser.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
-#control-item-notes {
+#control-item-icon-notes {
   background: url("/img/notes.png");
   background-size: contain;
   background-repeat: no-repeat;

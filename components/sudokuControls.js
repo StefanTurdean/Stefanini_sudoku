@@ -30,15 +30,15 @@ function createControlIcons(parentElement) {
 
     const controlItemBackground = createDomElement(
       "div",
-      "control-item-background",
-      "",
+      "control-item-btn",
+      `control-item-btn-${controlItemsList[i].name.toLowerCase()}`,
       controlItem
     );
 
     const controlItemIcon = createDomElement(
       "div",
       "control-item-icon",
-      `control-item-${controlItemsList[i].name.toLowerCase()}`,
+      `control-item-icon-${controlItemsList[i].name.toLowerCase()}`,
       controlItemBackground
     );
     const controlItemLable = createDomElement(

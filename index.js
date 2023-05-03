@@ -1,9 +1,9 @@
 import createTimeSection from "./components/sudokuTimer.js";
 import createDomElement from "./components/createDomElement.js";
 import createSudokuGameWraper from "./components/sudokuGameWraper.js";
+import sudokuState from "./components/sudokuState.js";
 
 function createLayoutElements() {
-
   const timeSection = createTimeSection("div", "sudoku-info");
 
   const sudokuGameWraper = createSudokuGameWraper(
@@ -25,11 +25,15 @@ function generateLayout(layoutElements, rootElement) {
   rootElement.appendChild(sudokuWraper);
 }
 
-
-
+let setArrowHandler = () => {
+  document.addEventListener("keydown", (event) => {
+    sudokuState.arrowControls(event);
+  });
+};
 
 const app = document.getElementById("app");
 const layoutElements = createLayoutElements();
-
 generateLayout(layoutElements, app);
 
+sudokuState.stateInit();
+setArrowHandler()
