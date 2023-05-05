@@ -1,12 +1,13 @@
 import createDomElement from "./createDomElement.js";
 import convertStringToGridArray from "./convertStringToGrid.js";
+import sudokuState from "./sudokuState.js";
 
 function generateSudokuNumbersId() {
   let sudokuNumbersIdString = [];
 
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
-      sudokuNumbersIdString.push(`${i}-${j}`);
+      sudokuNumbersIdString.push(`${j}-${i}`);
     }
   }
 
@@ -14,7 +15,6 @@ function generateSudokuNumbersId() {
 }
 
 function createSudokuGrid(parentElement) {
-
   const sudokuNumbersId = generateSudokuNumbersId();
 
   for (let i = 0; i < 9; i++) {
@@ -33,6 +33,10 @@ function createSudokuGrid(parentElement) {
       }
 
       const sudokuCell = createDomElement("div", "sudoku-cell", ``, sudokuGrid);
+
+      sudokuCell.addEventListener("click", (event) => {
+        sudokuState.curentCell = event.target;
+      });
 
       sudokuCell.id = sudokuNumbersId[i][k][j % 3];
     }

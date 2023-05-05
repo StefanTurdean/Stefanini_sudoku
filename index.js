@@ -25,10 +25,15 @@ function generateLayout(layoutElements, rootElement) {
   rootElement.appendChild(sudokuWraper);
 }
 
-let setArrowHandler = () => {
+let attachHandlerEvents = () => {
   document.addEventListener("keydown", (event) => {
-    sudokuState.arrowControls(event);
+    sudokuState.handleArrowPress(event);
   });
+
+  document.addEventListener("keydown", (event) => {
+    sudokuState.handleKeyPress(event);
+  });
+
 };
 
 const app = document.getElementById("app");
@@ -36,4 +41,4 @@ const layoutElements = createLayoutElements();
 generateLayout(layoutElements, app);
 
 sudokuState.stateInit();
-setArrowHandler()
+attachHandlerEvents()

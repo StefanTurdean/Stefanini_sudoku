@@ -1,6 +1,6 @@
-
 function highLightCells(cells, currentCell) {
   const cellsToHighLight = [];
+  const parentGrid = currentCell.parentElement;
 
   for (let i = 0; i < cells.length; i++) {
     cells[i].classList.remove("highLight", "highLightStrong");
@@ -25,13 +25,15 @@ function highLightCells(cells, currentCell) {
     cellsToHighLight[i].classList.add("highLight");
   }
 
-  const gridToHighLight = currentCell.parentElement;
-
-  for (let i = 0; i < gridToHighLight.children.length; i++) {
-    gridToHighLight.children[`${i}`].classList.add("highLight");
+  for (let i = 0; i < parentGrid.children.length; i++) {
+    parentGrid.children[`${i}`].classList.add("highLight");
   }
 
   currentCell.classList.add("highLightStrong");
+}
+
+function lookForMistakes(cells, currentCell) {
+  
 }
 
 export default highLightCells;

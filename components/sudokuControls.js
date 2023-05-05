@@ -1,4 +1,5 @@
 import createDomElement from "./createDomElement.js";
+import sudokuState from "./sudokuState.js";
 
 function createControlIcons(parentElement) {
   const sudokuControlItemsWraper = createDomElement(
@@ -61,13 +62,17 @@ function createNumpad(parentElement) {
   );
 
   for (let i = 1; i < 10; i++) {
-    const numBtn = createDomElement(
+    const numpadButton = createDomElement(
       "button",
       "sudoku-num-btn",
       `num-btn-${i}`,
       sudokuNumpad
     );
-    numBtn.innerText = `${i}`;
+    numpadButton.innerText = `${i}`;
+
+    numpadButton.addEventListener("click", () => {
+      sudokuState.handleNumpadClick(i);
+    });
   }
 }
 
@@ -79,6 +84,10 @@ function createNewGameBtn(parentElement) {
     parentElement
   );
   sudokuNewGameBtn.innerHTML = "NEW GAME";
+
+  sudokuNewGameBtn.addEventListener("click", () => {
+    sudokuState.newGame();
+  });
 }
 
 function createControlElement(elementType, className) {
@@ -87,8 +96,8 @@ function createControlElement(elementType, className) {
   createControlIcons(sudokuControls);
   createNumpad(sudokuControls);
   createNewGameBtn(sudokuControls);
-  
-  return sudokuControls
+
+  return sudokuControls;
 }
 
 export default createControlElement;

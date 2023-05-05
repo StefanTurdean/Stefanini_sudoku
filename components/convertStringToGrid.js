@@ -21,8 +21,7 @@ function convertStringToGridArray(string) {
     }
   }
 
-  console.log(gridArray);
   return gridArray;
 }
 
-export default convertStringToGridArray
+export default convertStringToGridArray;
