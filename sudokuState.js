@@ -1,125 +1,125 @@
-import highLightCells from "./cellHighlight.js";
+// import highLightCells from "./cellHighlight.js";
 
-class Cell {
-  value;
-  positionX;
-  positionY;
-  id;
-  #isLocked;
+// class Cell {
+//   value;
+//   positionX;
+//   positionY;
+//   id;
+//   #isLocked;
 
-  constructor(value, position) {
-    this.value = value;
-    this.positionX = positionX;
-    this.positiony = positionY;
-    this.#isLocked = false;
-  }
+//   constructor(value, position) {
+//     this.value = value;
+//     this.positionX = positionX;
+//     this.positiony = positionY;
+//     this.#isLocked = false;
+//   }
 
-  setLock = (boolean) => {
-    this.#isLocked = boolean;
-  };
-}
+//   setLock = (boolean) => {
+//     this.#isLocked = boolean;
+//   };
+// }
 
-class State {
-  #initialSudokuNumbers;
-  #curentCell;
-  currentSudokuNumbers;
-  sudokuCells;
+// class State {
+//   #initialSudokuNumbers;
+//   #curentCell;
+//   currentSudokuNumbers;
+//   sudokuCells;
 
-  constructor() {
-    this.#initialSudokuNumbers = sudoku.generate();
-    this.sudokuCells = [];
+//   constructor() {
+//     this.#initialSudokuNumbers = sudoku.generate();
+//     this.sudokuCells = [];
 
-    for (let i = 0; i < this.#initialSudokuNumbers.length; i++) {
+//     for (let i = 0; i < this.#initialSudokuNumbers.length; i++) {
 
-      const cell = new Cell(this.#initialSudokuNumbers[i], i);
-      this.sudokuCells.push(cell);
-    }
+//       const cell = new Cell(this.#initialSudokuNumbers[i], i);
+//       this.sudokuCells.push(cell);
+//     }
 
-    this.currentSudokuNumbers = this.#initialSudokuNumbers;
-    console.log(this.#initialSudokuNumbers);
-  }
+//     this.currentSudokuNumbers = this.#initialSudokuNumbers;
+//     console.log(this.#initialSudokuNumbers);
+//   }
 
-  stateInit = () => {
-    this.generateSudokuGrid();
-  };
+//   stateInit = () => {
+//     this.generateSudokuGrid();
+//   };
 
-  generateSudokuGrid = () => {
-    for (let i = 0; i < this.sudokuCells.length; i++) {
-      if (this.currentSudokuNumbers[i].number !== ".") {
-        this.sudokuCells[i].setLock(true);
-      }
-    }
+//   generateSudokuGrid = () => {
+//     for (let i = 0; i < this.sudokuCells.length; i++) {
+//       if (this.currentSudokuNumbers[i].number !== ".") {
+//         this.sudokuCells[i].setLock(true);
+//       }
+//     }
 
-    if (!this.#curentCell) {
-      console.log(this.sudokuCells);
-      this.#curentCell = this.sudokuCells[0];
-      // highLightCells(this.sudokuCells, this.#curentCell);
-    }
-  };
+//     if (!this.#curentCell) {
+//       console.log(this.sudokuCells);
+//       this.#curentCell = this.sudokuCells[0];
+//       highLightCells(this.sudokuCells, this.#curentCell);
+//     }
+//   };
 
-  // bindToGrid = (sudokuCells) => {
-  //   for (let i = 0; i < sudokuCells.length; i++) {
-  //     sudokuCells[i].addEventListener("click", (event) => {
-  //       this.setCurrentCell(event.target);
-  //     });
-  //   }
-  // };
+//   bindToGrid = (sudokuCells) => {
+//     for (let i = 0; i < sudokuCells.length; i++) {
+//       sudokuCells[i].addEventListener("click", (event) => {
+//         this.setCurrentCell(event.target);
+//       });
+//     }
+//   };
 
-  setCurrentCell = (event) => {
-    this.#curentCell = event;
-    // highLightCells(this.sudokuCells, this.#curentCell);
-  };
+//   setCurrentCell = (event) => {
+//     this.#curentCell = event;
+//     highLightCells(this.sudokuCells, this.#curentCell);
+//   };
 
-  arrowControls = (event) => {
-    let moveIncrement = 1;
-    let currentCellPosition = this.#curentCell.id.split("-");
+//   arrowControls = (event) => {
+//     let moveIncrement = 1;
+//     let currentCellPosition = this.#curentCell.id.split("-");
 
-    let currentCellX = Number(currentCellPosition[1]);
-    let currentCellY = Number(currentCellPosition[0]);
+//     let currentCellX = Number(currentCellPosition[1]);
+//     let currentCellY = Number(currentCellPosition[0]);
 
-    const gridBorderMin = 0;
-    const gridBorderMax = 8;
+//     const gridBorderMin = 0;
+//     const gridBorderMax = 8;
 
-    if (event.keyCode == 37) {
-      currentCellX = currentCellX - moveIncrement;
+//     if (event.keyCode == 37) {
+//       currentCellX = currentCellX - moveIncrement;
 
-      if (currentCellX < gridBorderMin) {
-        currentCellX = gridBorderMax;
-      }
-    }
+//       if (currentCellX < gridBorderMin) {
+//         currentCellX = gridBorderMax;
+//       }
+//     }
 
-    if (event.keyCode == 39) {
-      currentCellX = currentCellX + moveIncrement;
+//     if (event.keyCode == 39) {
+//       currentCellX = currentCellX + moveIncrement;
 
-      if (currentCellX > gridBorderMax) {
-        currentCellX = gridBorderMin;
-      }
-    }
+//       if (currentCellX > gridBorderMax) {
+//         currentCellX = gridBorderMin;
+//       }
+//     }
 
-    if (event.keyCode == 38) {
-      currentCellY = currentCellY - moveIncrement;
+//     if (event.keyCode == 38) {
+//       currentCellY = currentCellY - moveIncrement;
 
-      if (currentCellY < gridBorderMin) {
-        currentCellY = gridBorderMax;
-      }
-    }
+//       if (currentCellY < gridBorderMin) {
+//         currentCellY = gridBorderMax;
+//       }
+//     }
 
-    if (event.keyCode == 40) {
-      currentCellY = currentCellY + moveIncrement;
+//     if (event.keyCode == 40) {
+//       currentCellY = currentCellY + moveIncrement;
 
-      if (currentCellY > gridBorderMax) {
-        currentCellY = gridBorderMin;
-      }
-    }
+//       if (currentCellY > gridBorderMax) {
+//         currentCellY = gridBorderMin;
+//       }
+//     }
 
-    currentCellPosition = this.sudokuCells.find(
-      (x) => x.id === `${currentCellY}-${currentCellX}`
-    );
+//     currentCellPosition = this.sudokuCells.find(
+//       (x) => x.id === `${currentCellY}-${currentCellX}`
+//     );
 
-    this.setCurrentCell(currentCellPosition);
-  };
-}
+//     this.setCurrentCell(currentCellPosition);
+//   };
+// }
 
-const sudokuState = new State();
+// const sudokuState = new State();
 
-export default sudokuState;
+// export default sudokuState;

@@ -35,7 +35,7 @@ function createSudokuGrid(parentElement) {
       const sudokuCell = createDomElement("div", "sudoku-cell", ``, sudokuGrid);
 
       sudokuCell.addEventListener("click", (event) => {
-        sudokuState.curentCell = event.target;
+        sudokuState.currentCell = event.target;
       });
 
       sudokuCell.id = sudokuNumbersId[i][k][j % 3];

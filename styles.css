@@ -96,20 +96,8 @@ body {
   text-align: center;
   vertical-align: middle;
   font-size: 30px;
-  color: blue;
+  color: darkblue;
   cursor: pointer;
-}
-
-.highLight {
-  background-color: lightblue;
-}
-
-.highLightStrong {
-  background-color: pink;
-}
-
-.locked {
-  color: black;
 }
 
 /*  controls */
@@ -214,6 +202,23 @@ body {
   background-color: #0065c8;
 }
 
-.red {
-  color: yellow;
+.highLight {
+  background-color: lightblue;
+}
+
+.wrong-number {
+  background-color: #ff726f;
+  color: #ff2a26;
+}
+
+.same-number {
+  background-color: #96cfe2;
+}
+
+.highLight-strong {
+  background-color: pink;
+}
+
+.locked {
+  color: black;
 }

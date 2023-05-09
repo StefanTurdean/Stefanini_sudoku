@@ -3,7 +3,7 @@ import formatStringToGridString from "./formatStingToGridSting.js";
 
 class State {
   #initialSudokuNumbers;
-  #curentCell;
+  #currentCell;
   currentSudokuNumbers;
   sudokuCells;
 
@@ -17,13 +17,13 @@ class State {
     this.currentSudokuNumbers = this.#initialSudokuNumbers;
   }
 
-  set curentCell(target) {
-    this.#curentCell = target;
-    highLightCells(this.sudokuCells, this.#curentCell);
+  set currentCell(target) {
+    this.#currentCell = target;
+    highLightCells(this.sudokuCells, this.#currentCell);
   }
 
-  get curentCell() {
-    return this.#curentCell;
+  get currentCell() {
+    return this.#currentCell;
   }
 
   stateInit = () => {
@@ -53,7 +53,7 @@ class State {
       }
     }
 
-    this.curentCell = document.getElementById("0-0");
+    this.currentCell = document.getElementById("0-0");
   };
 
   getCellPositon = (cell) => {
@@ -65,25 +65,28 @@ class State {
     return { X: currentCellX, Y: currentCellY };
   };
 
-  changeCurrentNumbers = () => {
-    const currentCellPosition = this.getCellPositon(this.curentCell);
-    const currentPositionInString =
-      (currentCellPosition.X + 1) * (currentCellPosition.Y + 1) - 1;
+  // changeCurrentNumbers = () => {
+  //   const currentCellPosition = this.getCellPositon(this.currentCell);
+  //   const currentPositionInString =
+  //     (currentCellPosition.X + 1) * (currentCellPosition.Y + 1) - 1;
 
-    const stringBeforeCurrentCellPosition = this.currentSudokuNumbers.slice(
-      0,
-      currentPositionInString
-    );
+  //   const stringBeforeCurrentCellPosition = this.currentSudokuNumbers.slice(
+  //     0,
+  //     currentPositionInString
+  //   );
 
-    const stringAfterCurrentCellPosition = this.currentSudokuNumbers.slice(
-      -(currentPositionInString - 1)
-    );
-  };
+  //   const stringAfterCurrentCellPosition = this.currentSudokuNumbers.slice(
+  //     -(currentPositionInString - 1)
+  //   );
+
+  //  (Y * 9) + X
+
+  // };
 
   handleArrowPress = (event) => {
     const moveIncrement = 1;
 
-    const currentCellPosition = this.getCellPositon(this.curentCell);
+    const currentCellPosition = this.getCellPositon(this.currentCell);
 
     const gridBorderMin = 0;
     const gridBorderMax = 8;
@@ -129,19 +132,18 @@ class State {
       (x) => x.id === `${currentCellPosition.X}-${currentCellPosition.Y}`
     );
 
-    this.curentCell = newCell;
+    this.currentCell = newCell;
   };
 
   handleNumpadClick = (number) => {
-    this.changeCurrentNumbers();
-    if (!this.curentCell.classList.contains("locked")) {
+    if (!this.currentCell.classList.contains("locked")) {
       this.changeCurrentCellNumber(number);
     }
   };
 
   handleKeyPress = (event) => {
-    if (!this.curentCell.classList.contains("locked")) {
-      const numberKeys = /[0-9]/;
+    if (!this.currentCell.classList.contains("locked")) {
+      const numberKeys = /[1-9]/;
 
       if (numberKeys.test(event.key)) {
         this.changeCurrentCellNumber(event.key);
@@ -150,10 +152,19 @@ class State {
   };
 
   changeCurrentCellNumber = (number) => {
-    if (this.curentCell.innerText == number) {
-      this.curentCell.innerText = "";
+    if (this.currentCell.innerText == number) {
+      this.currentCell.innerText = "";
     } else {
-      this.curentCell.innerText = number;
+      this.currentCell.innerText = number;
+    }
+
+    highLightCells(this.sudokuCells, this.currentCell);
+  };
+
+  eraseCurrentCellNumber = (cells, currentCell) => {
+    if (!this.currentCell.classList.contains("locked")) {
+      currentCell.innerText = "";
+      highLightCells(cells, currentCell);
     }
   };
 }
