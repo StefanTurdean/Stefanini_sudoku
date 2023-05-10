@@ -1,4 +1,5 @@
 import createDomElement from "./createDomElement.js";
+import { handleNumpadClick } from "./handlers.js";
 import sudokuState from "./sudokuState.js";
 
 function createControlIcons(parentElement) {
@@ -12,13 +13,20 @@ function createControlIcons(parentElement) {
   const controlItemsList = [
     {
       name: "Undo",
-      handleClickFunction: ""
+      imagePath: "/img/undo.png",
+      callBackFunction: () => {},
     },
     {
       name: "Erase",
+      imagePath: "/img/eraser.png",
+      callBackFunction: () => {
+        sudokuState.eraseCurrentCellNumber();
+      },
     },
     {
       name: "Notes",
+      imagePath: "/img/notes.png",
+      callBackFunction: () => {},
     },
   ];
 
@@ -37,7 +45,10 @@ function createControlIcons(parentElement) {
       controlItem
     );
 
-    // controlItemBackground.addEventListener()
+    controlItemBackground.addEventListener(
+      "click",
+      controlItemsList[i].callBackFunction
+    );
 
     const controlItemIcon = createDomElement(
       "div",
@@ -45,6 +56,8 @@ function createControlIcons(parentElement) {
       `control-item-icon-${controlItemsList[i].name.toLowerCase()}`,
       controlItemBackground
     );
+
+    controlItemIcon.style.backgroundImage = `url(${controlItemsList[i].imagePath})`;
 
     const controlItemLable = createDomElement(
       "div",
@@ -75,7 +88,7 @@ function createNumpad(parentElement) {
     numpadButton.innerText = `${i}`;
 
     numpadButton.addEventListener("click", () => {
-      sudokuState.handleNumpadClick(i);
+      handleNumpadClick(i);
     });
   }
 }
@@ -100,16 +113,6 @@ function createControlElement(elementType, className) {
   createControlIcons(sudokuControls);
   createNumpad(sudokuControls);
   createNewGameBtn(sudokuControls);
-
-  sudokuControls.children[0].children[1].children[0].addEventListener(
-    "click",
-    () => {
-      sudokuState.eraseCurrentCellNumber(
-        sudokuState.sudokuCells,
-        sudokuState.currentCell
-      );
-    }
-  );
 
   return sudokuControls;
 }

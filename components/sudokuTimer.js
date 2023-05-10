@@ -18,7 +18,6 @@ function createTimeWraper(parentElement) {
 
   sudokuTimerSpan.innerText = "00:00";
 
-  // timer background
   const timerBackground = createDomElement(
     "div",
     "sudoku-timer-background-helper",

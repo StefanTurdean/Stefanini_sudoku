@@ -2,6 +2,7 @@ import createTimeSection from "./components/sudokuTimer.js";
 import createDomElement from "./components/createDomElement.js";
 import createSudokuGameWraper from "./components/sudokuGameWraper.js";
 import sudokuState from "./components/sudokuState.js";
+import { handleArrowPress, handleKeyPress } from "./components/handlers.js";
 
 function createLayoutElements() {
   const timeSection = createTimeSection("div", "sudoku-info");
@@ -26,19 +27,13 @@ function generateLayout(layoutElements, rootElement) {
 }
 
 function attachHandlerEvents() {
-  document.addEventListener("keydown", (event) => {
-    sudokuState.handleArrowPress(event);
-  });
-
-  document.addEventListener("keydown", (event) => {
-    sudokuState.handleKeyPress(event);
-  });
-
-};
+  document.addEventListener("keydown", handleArrowPress);
+  document.addEventListener("keydown", handleKeyPress);
+}
 
 const app = document.getElementById("app");
 const layoutElements = createLayoutElements();
 generateLayout(layoutElements, app);
 
 sudokuState.stateInit();
-attachHandlerEvents()
+attachHandlerEvents();

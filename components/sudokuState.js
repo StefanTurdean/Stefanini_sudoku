@@ -1,4 +1,4 @@
-import highLightCells from "./cellHighlight.js";
+import highlightCells from "./cellHighlight.js";
 import formatStringToGridString from "./formatStingToGridSting.js";
 
 class State {
@@ -19,7 +19,7 @@ class State {
 
   set currentCell(target) {
     this.#currentCell = target;
-    highLightCells(this.sudokuCells, this.#currentCell);
+    highlightCells(this.sudokuCells, this.#currentCell);
   }
 
   get currentCell() {
@@ -83,74 +83,6 @@ class State {
 
   // };
 
-  handleArrowPress = (event) => {
-    const moveIncrement = 1;
-
-    const currentCellPosition = this.getCellPositon(this.currentCell);
-
-    const gridBorderMin = 0;
-    const gridBorderMax = 8;
-
-    const leftArrowKey = "ArrowLeft";
-    const rightArrowKey = "ArrowRight";
-    const upArrowKey = "ArrowUp";
-    const downArrowKey = "ArrowDown";
-
-    if (event.key == leftArrowKey) {
-      currentCellPosition.X = currentCellPosition.X - moveIncrement;
-
-      if (currentCellPosition.X < gridBorderMin) {
-        currentCellPosition.X = gridBorderMax;
-      }
-    }
-
-    if (event.key == rightArrowKey) {
-      currentCellPosition.X = currentCellPosition.X + moveIncrement;
-
-      if (currentCellPosition.X > gridBorderMax) {
-        currentCellPosition.X = gridBorderMin;
-      }
-    }
-
-    if (event.key == upArrowKey) {
-      currentCellPosition.Y = currentCellPosition.Y - moveIncrement;
-
-      if (currentCellPosition.Y < gridBorderMin) {
-        currentCellPosition.Y = gridBorderMax;
-      }
-    }
-
-    if (event.key == downArrowKey) {
-      currentCellPosition.Y = currentCellPosition.Y + moveIncrement;
-
-      if (currentCellPosition.Y > gridBorderMax) {
-        currentCellPosition.Y = gridBorderMin;
-      }
-    }
-
-    let newCell = this.sudokuCells.find(
-      (x) => x.id === `${currentCellPosition.X}-${currentCellPosition.Y}`
-    );
-
-    this.currentCell = newCell;
-  };
-
-  handleNumpadClick = (number) => {
-    if (!this.currentCell.classList.contains("locked")) {
-      this.changeCurrentCellNumber(number);
-    }
-  };
-
-  handleKeyPress = (event) => {
-    if (!this.currentCell.classList.contains("locked")) {
-      const numberKeys = /[1-9]/;
-
-      if (numberKeys.test(event.key)) {
-        this.changeCurrentCellNumber(event.key);
-      }
-    }
-  };
-
   changeCurrentCellNumber = (number) => {
     if (this.currentCell.innerText == number) {
       this.currentCell.innerText = "";
@@ -158,13 +90,13 @@ class State {
       this.currentCell.innerText = number;
     }
 
-    highLightCells(this.sudokuCells, this.currentCell);
+    highlightCells(this.sudokuCells, this.currentCell);
   };
 
-  eraseCurrentCellNumber = (cells, currentCell) => {
+  eraseCurrentCellNumber = () => {
     if (!this.currentCell.classList.contains("locked")) {
-      currentCell.innerText = "";
-      highLightCells(cells, currentCell);
+      this.currentCell.innerText = "";
+      highlightCells(this.sudokuCells, this.currentCell);
     }
   };
 }

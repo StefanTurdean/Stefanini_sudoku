@@ -143,12 +143,12 @@ body {
 .control-item-icon {
   width: 50%;
   height: 50%;
-}
-
-#control-item-icon-undo {
-  background: url("/img/undo.png");
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+/* #control-item-icon-undo {
+  background: url("/img/undo.png");
 }
 #control-item-icon-erase {
   background: url("/img/eraser.png");
@@ -159,7 +159,7 @@ body {
   background: url("/img/notes.png");
   background-size: contain;
   background-repeat: no-repeat;
-}
+} */
 
 .sudoku-numpad {
   width: 100%;
@@ -202,7 +202,7 @@ body {
   background-color: #0065c8;
 }
 
-.highLight {
+.highlight {
   background-color: #e4ebf2;
 }
 
@@ -215,7 +215,7 @@ body {
   background-color: #96cfe2;
 }
 
-.highLight-strong {
+.selected {
   background-color: #c2ddf8;
 }
 

@@ -16,8 +16,6 @@ const createDomElement = (
 
   if (elementParent) {
     elementParent.appendChild(newElement);
-
-    //  rename to ELEMENT ^
   }
 
   return newElement;

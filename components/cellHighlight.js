@@ -1,6 +1,7 @@
-const highLight = "highLight";
-const highLightStrong = "highLight-strong";
+const highlight = "highlight";
+const selected = "selected";
 const sameNumber = "same-number";
+const wrongNumber = "wrong-number";
 
 function highlightSimilarNumbers(cells, currentCell) {
   if (currentCell.innerText === "") {
@@ -14,13 +15,17 @@ function highlightSimilarNumbers(cells, currentCell) {
   }
 }
 
-function checkForMistakes(currentCellLocation, currentCell) {
-  for (let i = 0; i < currentCellLocation.length; i++) {
-    for (let j = 0; j < currentCellLocation[i].length; j++) {
-      if (currentCell.id !== currentCellLocation[i][j].id) {
-        if (currentCell.innerText === currentCellLocation[i][j].innerText) {
-          currentCell.classList.add("wrong-number");
-          currentCellLocation[i][j].classList.add("wrong-number");
+function checkForMistakes(highlightedCells, currentCell) {
+  for (let i = 0; i < highlightedCells.length; i++) {
+    const highlightedSet = highlightedCells[i];
+
+    for (let j = 0; j < highlightedSet.length; j++) {
+      const highlightedCell = highlightedSet[j];
+
+      if (currentCell.id !== highlightedCell.id) {
+        if (currentCell.innerText === highlightedCell.innerText) {
+          currentCell.classList.add(wrongNumber);
+          highlightedCell.classList.add(wrongNumber);
         }
       }
     }
@@ -31,21 +36,25 @@ function reviewCellValidation(cells) {
   const wrongCells = [];
 
   for (let i = 0; i < cells.length; i++) {
-    if (cells[i].classList.contains("wrong-number")) {
+    if (cells[i].classList.contains(wrongNumber)) {
       wrongCells.push(cells[i]);
     }
   }
 
   for (let i = 0; i < wrongCells.length; i++) {
-    const currentCellLocation = getHighlightedCells(wrongCells[i]);
+    const highlightedCells = getHighlightedCells(wrongCells[i]);
     const currentCell = wrongCells[i];
     let isStillWrong = false;
 
-    for (let j = 0; j < currentCellLocation.length; j++) {
-      for (let k = 0; k < currentCellLocation[j].length; k++) {
-        if (currentCell.id !== currentCellLocation[j][k].id) {
+    for (let j = 0; j < highlightedCells.length; j++) {
+      const highlightedCellset = highlightedCells[j];
+
+      for (let k = 0; k < highlightedCellset.length; k++) {
+        const highlightedCell = highlightedCellset[k];
+
+        if (currentCell.id !== highlightedCell.id) {
           if (
-            currentCell.innerText === currentCellLocation[j][k].innerText &&
+            currentCell.innerText === highlightedCell.innerText &&
             currentCell.innerText !== ""
           ) {
             isStillWrong = true;
@@ -55,7 +64,7 @@ function reviewCellValidation(cells) {
     }
 
     if (!isStillWrong) {
-      currentCell.classList.remove("wrong-number");
+      currentCell.classList.remove(wrongNumber);
     }
   }
 }
@@ -84,25 +93,31 @@ function getHighlightedCells(currentCell) {
   return [square, row, column];
 }
 
-export default function highLightCells(cells, currentCell) {
-  const cellsToHighLight = getHighlightedCells(currentCell);
-
+function removeHighlightClass(cells) {
   for (let i = 0; i < cells.length; i++) {
-    cells[i].classList.remove(highLight, highLightStrong, sameNumber);
+    cells[i].classList.remove(highlight, selected, sameNumber);
   }
+}
 
-  for (let i = 0; i < cellsToHighLight.length; i++) {
-    for (let j = 0; j < cellsToHighLight[i].length; j++) {
-      cellsToHighLight[i][j].classList.add(highLight);
+function addHighlight(cells) {
+  for (let i = 0; i < cells.length; i++) {
+    for (let j = 0; j < cells[i].length; j++) {
+      cells[i][j].classList.add(highlight);
     }
   }
+}
 
+export default function highlightCells(cells, currentCell) {
+  const cellsToHighlight = getHighlightedCells(currentCell);
+
+  removeHighlightClass(cells);
+  addHighlight(cellsToHighlight);
   reviewCellValidation(cells);
   highlightSimilarNumbers(cells, currentCell);
 
   if (currentCell.innerText !== "") {
-    checkForMistakes(cellsToHighLight, currentCell);
+    checkForMistakes(cellsToHighlight, currentCell);
   }
 
-  currentCell.classList.add(highLightStrong);
+  currentCell.classList.add(selected);
 }
