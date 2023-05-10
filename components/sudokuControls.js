@@ -12,6 +12,7 @@ function createControlIcons(parentElement) {
   const controlItemsList = [
     {
       name: "Undo",
+      handleClickFunction: ""
     },
     {
       name: "Erase",
@@ -36,12 +37,15 @@ function createControlIcons(parentElement) {
       controlItem
     );
 
+    // controlItemBackground.addEventListener()
+
     const controlItemIcon = createDomElement(
       "div",
       "control-item-icon",
       `control-item-icon-${controlItemsList[i].name.toLowerCase()}`,
       controlItemBackground
     );
+
     const controlItemLable = createDomElement(
       "div",
       "control-item-lable",
@@ -96,6 +100,16 @@ function createControlElement(elementType, className) {
   createControlIcons(sudokuControls);
   createNumpad(sudokuControls);
   createNewGameBtn(sudokuControls);
+
+  sudokuControls.children[0].children[1].children[0].addEventListener(
+    "click",
+    () => {
+      sudokuState.eraseCurrentCellNumber(
+        sudokuState.sudokuCells,
+        sudokuState.currentCell
+      );
+    }
+  );
 
   return sudokuControls;
 }

@@ -1,41 +1,15 @@
-function highLightCells(cells, currentCell) {
-  const highLight = "highLight";
-  const highLightStrong = "highLight-strong";
-  const sameNumber = "same-number";
-  const cellsToHighLight = getHighlightedCells(currentCell);
+const highLight = "highLight";
+const highLightStrong = "highLight-strong";
+const sameNumber = "same-number";
+
+function highlightSimilarNumbers(cells, currentCell) {
+  if (currentCell.innerText === "") {
+    return;
+  }
 
   for (let i = 0; i < cells.length; i++) {
-    cells[i].classList.remove(highLight, highLightStrong);
-  }
-
-  for (let i = 0; i < cellsToHighLight.length; i++) {
-    for (let j = 0; j < cellsToHighLight[i].length; j++) {
-      cellsToHighLight[i][j].classList.add(highLight);
-    }
-  }
-
-  removeValidation(cells);
-  getSimilarNumbers(cells, currentCell, sameNumber);
-
-  if (currentCell.innerText !== "") {
-    checkForMistakes(cellsToHighLight, currentCell);
-  }
-
-  currentCell.classList.add(highLightStrong);
-}
-
-function getSimilarNumbers(cells, currentCell, className) {
-  for (let i = 0; i < cells.length; i++) {
-    if (cells[i].classList.contains(className)) {
-      cells[i].classList.remove(className);
-    }
-  }
-
-  if (currentCell.innerText !== "") {
-    for (let i = 0; i < cells.length; i++) {
-      if (currentCell.innerText === cells[i].innerText) {
-        cells[i].classList.add(className);
-      }
+    if (currentCell.innerText === cells[i].innerText) {
+      cells[i].classList.add(sameNumber);
     }
   }
 }
@@ -53,7 +27,7 @@ function checkForMistakes(currentCellLocation, currentCell) {
   }
 }
 
-function removeValidation(cells) {
+function reviewCellValidation(cells) {
   const wrongCells = [];
 
   for (let i = 0; i < cells.length; i++) {
@@ -65,8 +39,7 @@ function removeValidation(cells) {
   for (let i = 0; i < wrongCells.length; i++) {
     const currentCellLocation = getHighlightedCells(wrongCells[i]);
     const currentCell = wrongCells[i];
-
-    let stillWrong = false;
+    let isStillWrong = false;
 
     for (let j = 0; j < currentCellLocation.length; j++) {
       for (let k = 0; k < currentCellLocation[j].length; k++) {
@@ -75,13 +48,13 @@ function removeValidation(cells) {
             currentCell.innerText === currentCellLocation[j][k].innerText &&
             currentCell.innerText !== ""
           ) {
-            stillWrong = true;
+            isStillWrong = true;
           }
         }
       }
     }
 
-    if (!stillWrong) {
+    if (!isStillWrong) {
       currentCell.classList.remove("wrong-number");
     }
   }
@@ -111,4 +84,25 @@ function getHighlightedCells(currentCell) {
   return [square, row, column];
 }
 
-export default highLightCells;
+export default function highLightCells(cells, currentCell) {
+  const cellsToHighLight = getHighlightedCells(currentCell);
+
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].classList.remove(highLight, highLightStrong, sameNumber);
+  }
+
+  for (let i = 0; i < cellsToHighLight.length; i++) {
+    for (let j = 0; j < cellsToHighLight[i].length; j++) {
+      cellsToHighLight[i][j].classList.add(highLight);
+    }
+  }
+
+  reviewCellValidation(cells);
+  highlightSimilarNumbers(cells, currentCell);
+
+  if (currentCell.innerText !== "") {
+    checkForMistakes(cellsToHighLight, currentCell);
+  }
+
+  currentCell.classList.add(highLightStrong);
+}

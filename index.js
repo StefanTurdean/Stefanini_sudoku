@@ -25,7 +25,7 @@ function generateLayout(layoutElements, rootElement) {
   rootElement.appendChild(sudokuWraper);
 }
 
-let attachHandlerEvents = () => {
+function attachHandlerEvents() {
   document.addEventListener("keydown", (event) => {
     sudokuState.handleArrowPress(event);
   });

@@ -96,7 +96,7 @@ body {
   text-align: center;
   vertical-align: middle;
   font-size: 30px;
-  color: darkblue;
+  color: #3070db;
   cursor: pointer;
 }
 
@@ -203,12 +203,12 @@ body {
 }
 
 .highLight {
-  background-color: lightblue;
+  background-color: #e4ebf2;
 }
 
 .wrong-number {
-  background-color: #ff726f;
-  color: #ff2a26;
+  background-color: #f1d0d6;
+  color: #d5656f;
 }
 
 .same-number {
@@ -216,7 +216,7 @@ body {
 }
 
 .highLight-strong {
-  background-color: pink;
+  background-color: #c2ddf8;
 }
 
 .locked {
