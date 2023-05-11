@@ -4,20 +4,26 @@ import createSudokuGameWraper from "./components/sudokuGameWraper.js";
 import sudokuState from "./components/sudokuState.js";
 import { handleArrowPress, handleKeyPress } from "./components/handlers.js";
 
+const classNames = {
+  sudokuInfo: "sudoku-info",
+  sudokuWraper: "sudoku-wraper",
+  sudokuGameWraper: "sudoku-game-wraper",
+};
+
 function createLayoutElements() {
-  const timeSection = createTimeSection("div", "sudoku-info");
+  const timeSection = createTimeSection("div", classNames.sudokuInfo);
 
   const sudokuGameWraper = createSudokuGameWraper(
     "div",
-    "sudoku-game-wraper",
-    "sudoku-game-wraper"
+    classNames.sudokuGameWraper,
+    classNames.sudokuGameWraper
   );
 
   return [timeSection, sudokuGameWraper];
 }
 
 function generateLayout(layoutElements, rootElement) {
-  const sudokuWraper = createDomElement("div", "sudoku-wraper");
+  const sudokuWraper = createDomElement("div", classNames.sudokuWraper);
 
   for (let i = 0; i < layoutElements.length; i++) {
     sudokuWraper.appendChild(layoutElements[i]);

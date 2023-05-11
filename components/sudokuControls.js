@@ -2,10 +2,26 @@ import createDomElement from "./createDomElement.js";
 import { handleNumpadClick } from "./handlers.js";
 import sudokuState from "./sudokuState.js";
 
+const classNames = {
+  sudokuControlItemsWraper: "sudoku-controls-items-wraper",
+  controlItem: "control-item",
+  controlItemBtn: "control-item-btn",
+  controlItemIcon: "control-item-icon",
+  controlItemLable: "control-item-lable",
+  sudokuNumpad: "sudoku-numpad",
+  sudokuNumpadButton: "sudoku-numpad-button",
+  sudokuNewGameButton: "sudoku-new-game-button",
+};
+
+const elementIds = {
+  controlItemButton: "control-item-btn",
+  controlItemicon: "control-item-icon",
+};
+
 function createControlIcons(parentElement) {
   const sudokuControlItemsWraper = createDomElement(
     "div",
-    "sudoku-controls-items-wraper",
+    classNames.sudokuControlItemsWraper,
     "",
     parentElement
   );
@@ -33,15 +49,17 @@ function createControlIcons(parentElement) {
   for (let i = 0; i < controlItemsList.length; i++) {
     const controlItem = createDomElement(
       "div",
-      "control-item",
+      classNames.controlItem,
       "",
       sudokuControlItemsWraper
     );
 
     const controlItemBackground = createDomElement(
       "div",
-      "control-item-btn",
-      `control-item-btn-${controlItemsList[i].name.toLowerCase()}`,
+      classNames.controlItemBtn,
+      `${elementIds.controlItemButton}-${controlItemsList[
+        i
+      ].name.toLowerCase()}`,
       controlItem
     );
 
@@ -52,8 +70,10 @@ function createControlIcons(parentElement) {
 
     const controlItemIcon = createDomElement(
       "div",
-      "control-item-icon",
-      `control-item-icon-${controlItemsList[i].name.toLowerCase()}`,
+      classNames.controlItemIcon,
+      `${elementIds.controlItemButton}-${controlItemsList[
+        i
+      ].name.toLowerCase()}`,
       controlItemBackground
     );
 
@@ -61,7 +81,7 @@ function createControlIcons(parentElement) {
 
     const controlItemLable = createDomElement(
       "div",
-      "control-item-lable",
+      classNames.controlItemLable,
       "",
       controlItem
     );
@@ -73,7 +93,7 @@ function createControlIcons(parentElement) {
 function createNumpad(parentElement) {
   const sudokuNumpad = createDomElement(
     "div",
-    "sudoku-numpad",
+    classNames.sudokuNumpad,
     "sudoku-numpad",
     parentElement
   );
@@ -81,7 +101,7 @@ function createNumpad(parentElement) {
   for (let i = 1; i < 10; i++) {
     const numpadButton = createDomElement(
       "button",
-      "sudoku-num-btn",
+      classNames.sudokuNumpadButton,
       `num-btn-${i}`,
       sudokuNumpad
     );
@@ -96,7 +116,7 @@ function createNumpad(parentElement) {
 function createNewGameBtn(parentElement) {
   const sudokuNewGameBtn = createDomElement(
     "button",
-    "sudoku-new-game-btn",
+    classNames.sudokuNewGameButton,
     "sudoku-new-game-btn",
     parentElement
   );

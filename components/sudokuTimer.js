@@ -1,9 +1,21 @@
 import createDomElement from "./createDomElement.js";
 
+const classNames = {
+  sudokuTimerWraper: "sudoku-timer-wraper",
+  sudokuTimerSpan: "sudoku-timer-span",
+  sudokuTimerBackground: "sudoku-timer-background-helper",
+  sudokuTimerIcon: "sudoku-timer-icon",
+};
+
+const elementIds = {
+  sudokuTimer: "sudoku-timer",
+  sudokuTimerIcon: "sudoku-timer-icon",
+};
+
 function createTimeWraper(parentElement) {
   const sudokuTimerWraper = createDomElement(
     "div",
-    "sudoku-timer-wraper",
+    classNames.sudokuTimerWraper,
     "",
     parentElement
   );
@@ -11,8 +23,8 @@ function createTimeWraper(parentElement) {
   // timer text span
   const sudokuTimerSpan = createDomElement(
     "span",
-    "sudoku-timer-span",
-    "sudoku-timer",
+    classNames.sudokuTimerSpan,
+    elementIds.sudokuTimer,
     sudokuTimerWraper
   );
 
@@ -20,7 +32,7 @@ function createTimeWraper(parentElement) {
 
   const timerBackground = createDomElement(
     "div",
-    "sudoku-timer-background-helper",
+    classNames.sudokuTimerBackground,
     "",
     sudokuTimerWraper
   );
@@ -28,8 +40,8 @@ function createTimeWraper(parentElement) {
   // timer btn
   const sudokuTimerIcon = createDomElement(
     "div",
-    "sudoku-timer-icon",
-    "sudoku-timer-icon",
+    classNames.sudokuTimerIcon,
+    elementIds.sudokuTimerIcon,
     timerBackground
   );
 }

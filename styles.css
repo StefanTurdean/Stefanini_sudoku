@@ -170,7 +170,7 @@ body {
   height: 100%;
 }
 
-.sudoku-num-btn {
+.sudoku-numpad-button {
   font-size: 35px;
 
   border: none;
@@ -182,12 +182,12 @@ body {
   background-color: #eaeef4;
 }
 
-.sudoku-num-btn:hover {
+.sudoku-numpad-button:hover {
   background-color: #dce3ed;
 }
 
 /* new game */
-.sudoku-new-game-btn {
+.sudoku-new-game-button {
   border: none;
   height: 60px;
   border-radius: 5px;
@@ -198,7 +198,7 @@ body {
   cursor: pointer;
 }
 
-.sudoku-new-game-btn:hover {
+.sudoku-new-game-button:hover {
   background-color: #0065c8;
 }
 
