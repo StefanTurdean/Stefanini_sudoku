@@ -1,0 +1,86 @@
+import { createDomElement } from "../services/layout.service.js";
+import { CLASS_NAME } from "../constants.js";
+import state from "../state/index.js";
+
+function idFormatter(idString) {
+  const toFormat = [];
+  const formattedIds = [];
+
+  for (let i = 0; i < idString.length; i += 3) {
+    const segment = idString.slice(i, i + 3);
+    toFormat.push(segment);
+  }
+
+  for (let i = 0; i < toFormat.length; i++) {
+    const helper = [];
+
+    helper.push(toFormat[i]);
+    helper.push(toFormat[i + 3]);
+    helper.push(toFormat[i + 6]);
+
+    formattedIds.push(helper);
+
+    if (i % 3 == 2) {
+      i = i + 6;
+    }
+  }
+
+  return formattedIds;
+}
+
+function generateCellsIds() {
+  let cellsId = [];
+
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      cellsId.push(`${j}-${i}`);
+    }
+  }
+
+  return idFormatter(cellsId);
+}
+
+function createSquares(parentElement) {
+  const cellsId = generateCellsIds();
+
+  for (let i = 0; i < 9; i++) {
+    let k = 0;
+
+    const sudokuSquare = createDomElement(
+      "div",
+      CLASS_NAME.square,
+      `sudoku-square-${i}`,
+      parentElement
+    );
+
+    for (let j = 0; j < 9; j++) {
+      if (j !== 0 && j % 3 === 0) {
+        k += 1;
+      }
+
+      const cell = createDomElement("div", CLASS_NAME.cell, "", sudokuSquare);
+
+      cell.addEventListener("click", (event) => {
+        state.currentCell = event.target;
+      });
+
+      cell.id = cellsId[i][k][j % 3];
+    }
+  }
+}
+
+function createSudokuGridElement() {
+  const sudokuGameGrid = createDomElement(
+    "div",
+    CLASS_NAME.sudokuGame,
+    CLASS_NAME.sudokuGame
+  );
+
+  createSquares(sudokuGameGrid);
+
+  return sudokuGameGrid;
+}
+
+const sudokuGrid = createSudokuGridElement();
+
+export default sudokuGrid;

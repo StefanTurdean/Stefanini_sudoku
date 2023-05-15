@@ -1,27 +1,17 @@
-import createDomElement from "./createDomElement.js";
-import { handleNumpadClick } from "./handlers.js";
-import sudokuState from "./sudokuState.js";
-
-const classNames = {
-  sudokuControlItemsWraper: "sudoku-controls-items-wraper",
-  controlItem: "control-item",
-  controlItemBtn: "control-item-btn",
-  controlItemIcon: "control-item-icon",
-  controlItemLable: "control-item-lable",
-  sudokuNumpad: "sudoku-numpad",
-  sudokuNumpadButton: "sudoku-numpad-button",
-  sudokuNewGameButton: "sudoku-new-game-button",
-};
+import { createDomElement } from "../services/layout.service.js";
+import { handleNumpadClick } from "../services/eventHandler.service.js";
+import { CONTROL_CLASS_NAME } from "../constants.js";
+import state from "../state/index.js";
 
 const elementIds = {
   controlItemButton: "control-item-btn",
-  controlItemicon: "control-item-icon",
+  controlItemIcon: "control-item-icon",
 };
 
 function createControlIcons(parentElement) {
-  const sudokuControlItemsWraper = createDomElement(
+  const sudokuControlItemsWrapper = createDomElement(
     "div",
-    classNames.sudokuControlItemsWraper,
+    CONTROL_CLASS_NAME.itemsWrapper,
     "",
     parentElement
   );
@@ -36,7 +26,7 @@ function createControlIcons(parentElement) {
       name: "Erase",
       imagePath: "/img/eraser.png",
       callBackFunction: () => {
-        sudokuState.eraseCurrentCellNumber();
+        state.eraseCurrentCellValue();
       },
     },
     {
@@ -49,14 +39,14 @@ function createControlIcons(parentElement) {
   for (let i = 0; i < controlItemsList.length; i++) {
     const controlItem = createDomElement(
       "div",
-      classNames.controlItem,
+      CONTROL_CLASS_NAME.item,
       "",
-      sudokuControlItemsWraper
+      sudokuControlItemsWrapper
     );
 
     const controlItemBackground = createDomElement(
       "div",
-      classNames.controlItemBtn,
+      CONTROL_CLASS_NAME.itemBtn,
       `${elementIds.controlItemButton}-${controlItemsList[
         i
       ].name.toLowerCase()}`,
@@ -70,7 +60,7 @@ function createControlIcons(parentElement) {
 
     const controlItemIcon = createDomElement(
       "div",
-      classNames.controlItemIcon,
+      CONTROL_CLASS_NAME.itemIcon,
       `${elementIds.controlItemButton}-${controlItemsList[
         i
       ].name.toLowerCase()}`,
@@ -79,21 +69,21 @@ function createControlIcons(parentElement) {
 
     controlItemIcon.style.backgroundImage = `url(${controlItemsList[i].imagePath})`;
 
-    const controlItemLable = createDomElement(
+    const controlItemLabel = createDomElement(
       "div",
-      classNames.controlItemLable,
+      CONTROL_CLASS_NAME.itemLabel,
       "",
       controlItem
     );
 
-    controlItemLable.innerText = `${controlItemsList[i].name}`;
+    controlItemLabel.innerText = `${controlItemsList[i].name}`;
   }
 }
 
 function createNumpad(parentElement) {
   const sudokuNumpad = createDomElement(
     "div",
-    classNames.sudokuNumpad,
+    CONTROL_CLASS_NAME.numpad,
     "sudoku-numpad",
     parentElement
   );
@@ -101,7 +91,7 @@ function createNumpad(parentElement) {
   for (let i = 1; i < 10; i++) {
     const numpadButton = createDomElement(
       "button",
-      classNames.sudokuNumpadButton,
+      CONTROL_CLASS_NAME.numpadButton,
       `num-btn-${i}`,
       sudokuNumpad
     );
@@ -116,19 +106,19 @@ function createNumpad(parentElement) {
 function createNewGameBtn(parentElement) {
   const sudokuNewGameBtn = createDomElement(
     "button",
-    classNames.sudokuNewGameButton,
+    CONTROL_CLASS_NAME.newGameButton,
     "sudoku-new-game-btn",
     parentElement
   );
   sudokuNewGameBtn.innerHTML = "NEW GAME";
 
   sudokuNewGameBtn.addEventListener("click", () => {
-    sudokuState.newGame();
+    state.startNewGame();
   });
 }
 
-function createControlElement(elementType, className) {
-  const sudokuControls = createDomElement(elementType, className);
+function createControlElement() {
+  const sudokuControls = createDomElement("div", CONTROL_CLASS_NAME.controls);
 
   createControlIcons(sudokuControls);
   createNumpad(sudokuControls);
@@ -137,4 +127,6 @@ function createControlElement(elementType, className) {
   return sudokuControls;
 }
 
-export default createControlElement;
+const sudokuControls = createControlElement();
+
+export default sudokuControls;

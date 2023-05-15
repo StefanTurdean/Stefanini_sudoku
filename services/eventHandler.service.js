@@ -1,21 +1,22 @@
-import sudokuState from "./sudokuState.js";
+import { CLASS_NAME } from "../constants.js";
+import state from "../state/index.js";
+
+const KEYBOARD_ARROW_KEY = Object.freeze({
+  left: "ArrowLeft",
+  right: "ArrowRight",
+  up: "ArrowUp",
+  down: "ArrowDown",
+});
 
 export function handleArrowPress(event) {
   const moveIncrement = 1;
 
-  const currentCellPosition = sudokuState.getCellPositon(
-    sudokuState.currentCell
-  );
-
   const gridBorderMin = 0;
   const gridBorderMax = 8;
 
-  const leftArrowKey = "ArrowLeft";
-  const rightArrowKey = "ArrowRight";
-  const upArrowKey = "ArrowUp";
-  const downArrowKey = "ArrowDown";
+  const currentCellPosition = state.currentCellPosition;
 
-  if (event.key == leftArrowKey) {
+  if (event.key == KEYBOARD_ARROW_KEY.left) {
     currentCellPosition.X = currentCellPosition.X - moveIncrement;
 
     if (currentCellPosition.X < gridBorderMin) {
@@ -23,7 +24,7 @@ export function handleArrowPress(event) {
     }
   }
 
-  if (event.key == rightArrowKey) {
+  if (event.key == KEYBOARD_ARROW_KEY.right) {
     currentCellPosition.X = currentCellPosition.X + moveIncrement;
 
     if (currentCellPosition.X > gridBorderMax) {
@@ -31,7 +32,7 @@ export function handleArrowPress(event) {
     }
   }
 
-  if (event.key == upArrowKey) {
+  if (event.key == KEYBOARD_ARROW_KEY.up) {
     currentCellPosition.Y = currentCellPosition.Y - moveIncrement;
 
     if (currentCellPosition.Y < gridBorderMin) {
@@ -39,7 +40,7 @@ export function handleArrowPress(event) {
     }
   }
 
-  if (event.key == downArrowKey) {
+  if (event.key == KEYBOARD_ARROW_KEY.down) {
     currentCellPosition.Y = currentCellPosition.Y + moveIncrement;
 
     if (currentCellPosition.Y > gridBorderMax) {
@@ -47,25 +48,30 @@ export function handleArrowPress(event) {
     }
   }
 
-  let newCell = sudokuState.sudokuCells.find(
+  let newCell = state.sudokuCells.find(
     (x) => x.id === `${currentCellPosition.X}-${currentCellPosition.Y}`
   );
 
-  sudokuState.currentCell = newCell;
+  state.currentCell = newCell;
 }
 
 export function handleNumpadClick(number) {
-  if (!sudokuState.currentCell.classList.contains("locked")) {
-    sudokuState.changeCurrentCellNumber(number);
+  if (!state.currentCell.classList.contains(CLASS_NAME.locked)) {
+    state.changeCurrentCellValue(number);
   }
 }
 
 export function handleKeyPress(event) {
-  if (!sudokuState.currentCell.classList.contains("locked")) {
-    const numberKeys = /[1-9]/;
+  if (!state.currentCell.classList.contains(CLASS_NAME.locked)) {
+    const numberKeys = /^[1-9]$/;
 
     if (numberKeys.test(event.key)) {
-      sudokuState.changeCurrentCellNumber(event.key);
+      state.changeCurrentCellValue(event.key);
     }
   }
+}
+
+export function attacheDocumentEventHandlers() {
+  document.addEventListener("keydown", handleArrowPress);
+  document.addEventListener("keydown", handleKeyPress);
 }

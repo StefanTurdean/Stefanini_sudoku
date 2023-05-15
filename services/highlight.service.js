@@ -1,7 +1,4 @@
-const highlight = "highlight";
-const selected = "selected";
-const sameNumber = "same-number";
-const wrongNumber = "wrong-number";
+import { HIGHLIGHT_CLASS_NAME } from "../constants.js";
 
 function highlightSimilarNumbers(cells, currentCell) {
   if (currentCell.innerText === "") {
@@ -10,7 +7,7 @@ function highlightSimilarNumbers(cells, currentCell) {
 
   for (let i = 0; i < cells.length; i++) {
     if (currentCell.innerText === cells[i].innerText) {
-      cells[i].classList.add(sameNumber);
+      cells[i].classList.add(HIGHLIGHT_CLASS_NAME.similar);
     }
   }
 }
@@ -24,8 +21,8 @@ function checkForMistakes(highlightedCells, currentCell) {
 
       if (currentCell.id !== highlightedCell.id) {
         if (currentCell.innerText === highlightedCell.innerText) {
-          currentCell.classList.add(wrongNumber);
-          highlightedCell.classList.add(wrongNumber);
+          currentCell.classList.add(HIGHLIGHT_CLASS_NAME.invalid);
+          highlightedCell.classList.add(HIGHLIGHT_CLASS_NAME.invalid);
         }
       }
     }
@@ -36,7 +33,7 @@ function reviewCellValidation(cells) {
   const wrongCells = [];
 
   for (let i = 0; i < cells.length; i++) {
-    if (cells[i].classList.contains(wrongNumber)) {
+    if (cells[i].classList.contains(HIGHLIGHT_CLASS_NAME.invalid)) {
       wrongCells.push(cells[i]);
     }
   }
@@ -47,10 +44,10 @@ function reviewCellValidation(cells) {
     let isStillWrong = false;
 
     for (let j = 0; j < highlightedCells.length; j++) {
-      const highlightedCellset = highlightedCells[j];
+      const highlightedCellSet = highlightedCells[j];
 
-      for (let k = 0; k < highlightedCellset.length; k++) {
-        const highlightedCell = highlightedCellset[k];
+      for (let k = 0; k < highlightedCellSet.length; k++) {
+        const highlightedCell = highlightedCellSet[k];
 
         if (currentCell.id !== highlightedCell.id) {
           if (
@@ -64,13 +61,13 @@ function reviewCellValidation(cells) {
     }
 
     if (!isStillWrong) {
-      currentCell.classList.remove(wrongNumber);
+      currentCell.classList.remove(HIGHLIGHT_CLASS_NAME.invalid);
     }
   }
 }
 
 function getHighlightedCells(currentCell) {
-  const serchCellsToHightLight = currentCell.id.split("-");
+  const searchCellsToHightLight = currentCell.id.split("-");
 
   const square = currentCell.parentElement.children;
   const row = [];
@@ -78,13 +75,13 @@ function getHighlightedCells(currentCell) {
 
   for (let i = 0; i < 9; i++) {
     const currentRow = document.getElementById(
-      `${i}-${serchCellsToHightLight[1]}`
+      `${i}-${searchCellsToHightLight[1]}`
     );
 
     row.push(currentRow);
 
     const currentColumn = document.getElementById(
-      `${serchCellsToHightLight[0]}-${i}`
+      `${searchCellsToHightLight[0]}-${i}`
     );
 
     column.push(currentColumn);
@@ -95,19 +92,23 @@ function getHighlightedCells(currentCell) {
 
 function removeHighlightClass(cells) {
   for (let i = 0; i < cells.length; i++) {
-    cells[i].classList.remove(highlight, selected, sameNumber);
+    cells[i].classList.remove(
+      HIGHLIGHT_CLASS_NAME.highlight,
+      HIGHLIGHT_CLASS_NAME.selected,
+      HIGHLIGHT_CLASS_NAME.similar
+    );
   }
 }
 
 function addHighlight(cells) {
   for (let i = 0; i < cells.length; i++) {
     for (let j = 0; j < cells[i].length; j++) {
-      cells[i][j].classList.add(highlight);
+      cells[i][j].classList.add(HIGHLIGHT_CLASS_NAME.highlight);
     }
   }
 }
 
-export default function highlightCells(cells, currentCell) {
+export function highlightCells(cells, currentCell) {
   const cellsToHighlight = getHighlightedCells(currentCell);
 
   removeHighlightClass(cells);
@@ -119,5 +120,5 @@ export default function highlightCells(cells, currentCell) {
     checkForMistakes(cellsToHighlight, currentCell);
   }
 
-  currentCell.classList.add(selected);
+  currentCell.classList.add(HIGHLIGHT_CLASS_NAME.selected);
 }

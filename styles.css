@@ -19,7 +19,7 @@ body {
   justify-content: center;
 }
 
-.sudoku-wraper {
+.sudoku-wrapper {
   width: 100%;
   height: 100%;
   max-height: 540px;
@@ -29,7 +29,7 @@ body {
   flex-direction: column;
 }
 
-.sudoku-timer-wraper {
+.timer-wrapper {
   width: 100%;
   height: 100%;
   max-height: 30px;
@@ -39,7 +39,7 @@ body {
   padding: 0 30px;
 }
 
-.sudoku-timer-background-helper {
+.timer-background {
   width: 25px;
   height: 25px;
   background: #eaeef4;
@@ -51,11 +51,11 @@ body {
   margin-right: 30px;
 }
 
-.sudoku-timer-background-helper:hover {
+.timer-background:hover {
   background-color: #dce3ed;
 }
 
-.sudoku-timer-icon {
+.timer-icon {
   width: 75%;
   height: 75%;
   background-image: url("/img/211871_pause_icon.png");
@@ -63,7 +63,7 @@ body {
   background-position: center;
 }
 
-.sudoku-game-wraper {
+.game-wrapper {
   width: 100%;
   height: 100%;
   display: flex;
@@ -77,7 +77,7 @@ body {
   grid-template-columns: auto auto auto;
 }
 
-.sudoku-grid {
+.square {
   width: 100%;
   height: auto;
   display: grid;
@@ -85,7 +85,7 @@ body {
   border: 0.5px solid black;
 }
 
-.sudoku-cell {
+.cell {
   width: 100%;
   height: 100%;
   width: 56px;
@@ -101,7 +101,7 @@ body {
 }
 
 /*  controls */
-.sudoku-controls {
+.controls {
   width: 100%;
   height: 100%;
   max-width: 360px;
@@ -111,12 +111,12 @@ body {
   justify-content: space-between;
 }
 
-.sudoku-controls-items-wraper {
+.items-wrapper {
   display: flex;
   justify-content: space-around;
 }
 
-.control-item {
+.item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -124,7 +124,7 @@ body {
   color: #0072e3;
 }
 
-.control-item-btn {
+.item-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,7 +140,7 @@ body {
   background-color: #dce3ed;
 }
 
-.control-item-icon {
+.item-icon {
   width: 50%;
   height: 50%;
   background-size: contain;
@@ -161,7 +161,7 @@ body {
   background-repeat: no-repeat;
 } */
 
-.sudoku-numpad {
+.numpad {
   width: 100%;
   height: auto;
   display: grid;
@@ -170,7 +170,7 @@ body {
   height: 100%;
 }
 
-.sudoku-numpad-button {
+.numpad-button {
   font-size: 35px;
 
   border: none;
@@ -182,12 +182,12 @@ body {
   background-color: #eaeef4;
 }
 
-.sudoku-numpad-button:hover {
+.numpad-button:hover {
   background-color: #dce3ed;
 }
 
 /* new game */
-.sudoku-new-game-button {
+.new-game-button {
   border: none;
   height: 60px;
   border-radius: 5px;
@@ -198,7 +198,7 @@ body {
   cursor: pointer;
 }
 
-.sudoku-new-game-button:hover {
+.new-game-button:hover {
   background-color: #0065c8;
 }
 
@@ -206,17 +206,17 @@ body {
   background-color: #e4ebf2;
 }
 
-.wrong-number {
+.invalid {
   background-color: #f1d0d6;
   color: #d5656f;
 }
 
-.same-number {
-  background-color: #96cfe2;
+.similar {
+  background-color: #c2ddf8;
 }
 
 .selected {
-  background-color: #c2ddf8;
+  background-color: #96cfe2;
 }
 
 .locked {
