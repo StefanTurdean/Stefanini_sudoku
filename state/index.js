@@ -1,16 +1,17 @@
+import { CLASS_NAME } from "../constants.js";
 import { highlightCells } from "../services/highlight.service.js";
 import { generateSudokuValues } from "../services/sudoku.service.js";
 
 class State {
   #currentCell;
   #currentCellPosition;
-  sudokuCells;
+  cells;
 
   set currentCell(cell) {
     this.#currentCell = cell;
     this.#currentCellPosition = this.#getCellPosition(cell);
 
-    highlightCells(this.sudokuCells, this.#currentCell);
+    highlightCells(this.cells, this.#currentCell);
   }
 
   get currentCell() {
@@ -28,7 +29,8 @@ class State {
   }
 
   initialize = () => {
-    this.sudokuCells = [...document.querySelectorAll(".cell")];
+    console.log(CLASS_NAME.cell);
+    this.cells = [...document.querySelectorAll(`.${CLASS_NAME.cell}`)];
 
     this.startNewGame();
   };
@@ -36,18 +38,18 @@ class State {
   startNewGame = () => {
     const sudokuValuesString = generateSudokuValues();
 
-    for (let i = 0; i < this.sudokuCells.length; i++) {
-      this.sudokuCells[i].classList.remove("locked");
+    for (let i = 0; i < this.cells.length; i++) {
+      this.cells[i].classList.remove(CLASS_NAME.locked);
 
       if (sudokuValuesString[i] !== ".") {
-        this.sudokuCells[i].classList.add("locked");
-        this.sudokuCells[i].innerText = sudokuValuesString[i];
+        this.cells[i].classList.add(CLASS_NAME.locked);
+        this.cells[i].innerText = sudokuValuesString[i];
       } else {
-        this.sudokuCells[i].innerText = "";
+        this.cells[i].innerText = "";
       }
     }
 
-    this.currentCell = document.getElementById("0-0");
+    this.currentCell = this.cells[0];
   };
 
   //TODO: (Y * 9) + X
@@ -59,13 +61,13 @@ class State {
       this.currentCell.innerText = number;
     }
 
-    highlightCells(this.sudokuCells, this.currentCell);
+    highlightCells(this.cells, this.currentCell);
   };
 
   eraseCurrentCellValue = () => {
-    if (!this.currentCell.classList.contains("locked")) {
+    if (!this.currentCell.classList.contains(CLASS_NAME.locked)) {
       this.currentCell.innerText = "";
-      highlightCells(this.sudokuCells, this.currentCell);
+      highlightCells(this.cells, this.currentCell);
     }
   };
 }

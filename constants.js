@@ -1,9 +1,7 @@
 export const CLASS_NAME = {
-  sudokuInfo: "sudoku-info",
   sudokuWrapper: "sudoku-wrapper",
   gameWrapper: "game-wrapper",
   sudokuGame: "sudoku-game",
-
   square: "square",
   cell: "cell",
 
@@ -19,7 +17,6 @@ export const HIGHLIGHT_CLASS_NAME = {
 
 export const TIMER_CLASS_NAME = {
   wrapper: "timer-wrapper",
-  span: "sudoku-timer-span",
   background: "timer-background",
   icon: "timer-icon",
 };
@@ -29,9 +26,12 @@ export const CONTROL_CLASS_NAME = {
   item: "item",
   itemBtn: "item-button",
   itemIcon: "item-icon",
-  itemLabel: "control-item-label",
   numpad: "numpad",
   numpadButton: "numpad-button",
   newGameButton: "new-game-button",
   controls: "controls",
+};
+
+export const ELEMENT_ID = {
+  square: "square",
 };

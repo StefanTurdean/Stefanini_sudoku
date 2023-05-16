@@ -48,7 +48,7 @@ export function handleArrowPress(event) {
     }
   }
 
-  let newCell = state.sudokuCells.find(
+  let newCell = state.cells.find(
     (x) => x.id === `${currentCellPosition.X}-${currentCellPosition.Y}`
   );
 

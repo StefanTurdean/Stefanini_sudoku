@@ -1,11 +1,6 @@
 import { TIMER_CLASS_NAME } from "../constants.js";
 import { createDomElement } from "../services/layout.service.js";
 
-const elementIds = {
-  sudokuTimer: "sudoku-timer",
-  sudokuTimerIcon: "sudoku-timer-icon",
-};
-
 function createTimeWrapper(parentElement) {
   const timerWrapper = createDomElement(
     "div",
@@ -18,7 +13,7 @@ function createTimeWrapper(parentElement) {
   const timerSpan = createDomElement(
     "span",
     TIMER_CLASS_NAME.span,
-    elementIds.sudokuTimer,
+    "",
     timerWrapper
   );
 
@@ -31,11 +26,10 @@ function createTimeWrapper(parentElement) {
     timerWrapper
   );
 
-  // timer btn
   const timerIcon = createDomElement(
     "div",
     TIMER_CLASS_NAME.icon,
-    elementIds.sudokuTimerIcon,
+    "",
     timerBackground
   );
 }

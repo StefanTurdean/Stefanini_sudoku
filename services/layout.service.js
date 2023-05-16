@@ -5,11 +5,7 @@ import { CLASS_NAME } from "../constants.js";
 function createLayoutElements() {
   const timeSection = createTimeSection("div", CLASS_NAME.sudokuInfo);
 
-  const gameWrapper = createGameWrapper(
-    "div",
-    CLASS_NAME.gameWrapper,
-    CLASS_NAME.gameWrapper
-  );
+  const gameWrapper = createGameWrapper("div", CLASS_NAME.gameWrapper);
 
   return [timeSection, gameWrapper];
 }
