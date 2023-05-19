@@ -9,7 +9,6 @@ function createTimeWrapper(parentElement) {
     parentElement
   );
 
-  // timer text span
   const timerSpan = createDomElement(
     "span",
     TIMER_CLASS_NAME.span,

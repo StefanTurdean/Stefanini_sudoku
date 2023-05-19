@@ -27,7 +27,9 @@ function createControlIcons(parentElement) {
     {
       name: "Notes",
       imagePath: "/img/notes.png",
-      callBackFunction: () => {},
+      callBackFunction: () => {
+        state.notesIsActive = !state.notesIsActive;
+      },
     },
   ];
 

@@ -66,7 +66,7 @@ export function handleKeyPress(event) {
     const numberKeys = /^[1-9]$/;
 
     if (numberKeys.test(event.key)) {
-      state.changeCurrentCellValue(event.key);
+      state.changeCurrentCellValue(Number(event.key));
     }
   }
 }

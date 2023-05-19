@@ -59,12 +59,11 @@ function createSquares(parentElement) {
       }
 
       const cell = createDomElement("div", CLASS_NAME.cell, "", square);
-
-      cell.addEventListener("click", (event) => {
-        state.currentCell = event.target;
-      });
-
       cell.id = cellsId[i][k][j % 3];
+
+      cell.addEventListener("click", () => {
+        state.currentCell = cell;
+      });
     }
   }
 }

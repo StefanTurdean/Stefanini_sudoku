@@ -114,11 +114,13 @@ export function highlightCells(cells, currentCell) {
   removeHighlightClass(cells);
   addHighlight(cellsToHighlight);
   reviewCellValidation(cells);
+
+  //
   highlightSimilarNumbers(cells, currentCell);
 
-  if (currentCell.innerText !== "") {
+  if (currentCell.innerHtml !== "") {
     checkForMistakes(cellsToHighlight, currentCell);
   }
-
+  //
   currentCell.classList.add(HIGHLIGHT_CLASS_NAME.selected);
 }

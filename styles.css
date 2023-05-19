@@ -198,6 +198,20 @@ body {
   cursor: pointer;
 }
 
+.notes {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 0;
+}
+
+.note {
+  width: 18px;
+  height: 18px;
+  font-size: 14px;
+}
+
 .new-game-button:hover {
   background-color: #0065c8;
 }
