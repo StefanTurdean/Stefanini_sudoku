@@ -27,7 +27,9 @@ function createControlIcons(parentElement) {
     {
       name: "Notes",
       imagePath: "/img/notes.png",
-      callBackFunction: () => {
+      callBackFunction: (event) => {
+        document;
+        event.target.classList.toggle(CLASS_NAME.iconActive);
         state.notesIsActive = !state.notesIsActive;
       },
     },
@@ -44,9 +46,7 @@ function createControlIcons(parentElement) {
     const controlItemBackground = createDomElement(
       "div",
       CONTROL_CLASS_NAME.itemBtn,
-      `${ELEMENT_ID.controlItemButton}-${controlItemsList[
-        i
-      ].name.toLowerCase()}`,
+      `${controlItemsList[i].name.toLowerCase()}`,
       controlItem
     );
 
@@ -58,9 +58,7 @@ function createControlIcons(parentElement) {
     const controlItemIcon = createDomElement(
       "div",
       CONTROL_CLASS_NAME.itemIcon,
-      `${CLASS_NAME.controlItemButton}-${controlItemsList[
-        i
-      ].name.toLowerCase()}`,
+      "",
       controlItemBackground
     );
 

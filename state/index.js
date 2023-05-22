@@ -7,15 +7,17 @@ class State {
   #currentCell;
   #currentCellPosition;
   notesIsActive;
+  gameHistory;
   cells;
 
   constructor() {
     this.notesIsActive = false;
+    this.gameHistory = [];
   }
 
   set currentCell(cell) {
     this.#currentCell = cell;
-    this.#currentCellPosition = this.#getCellPosition(cell);
+    this.#currentCellPosition = this.getCellPosition(cell);
 
     highlightCells(this.cells, this.#currentCell);
   }
@@ -28,7 +30,7 @@ class State {
     return this.#currentCellPosition;
   }
 
-  #getCellPosition(cell) {
+  getCellPosition(cell) {
     let [x, y] = cell.id.split("-");
 
     return { X: Number(x), Y: Number(y) };
@@ -37,14 +39,19 @@ class State {
   initialize = () => {
     this.cells = [...document.querySelectorAll(`.${CLASS_NAME.cell}`)];
 
+    console.log(this.cells);
+
     this.startNewGame();
   };
 
   startNewGame = () => {
     const sudokuValuesString = generateSudokuValues();
+    this.gameHistory.length = 0;
 
     for (let i = 0; i < this.cells.length; i++) {
       this.cells[i].classList.remove(CLASS_NAME.locked);
+      this.cells[i].classList.remove(CLASS_NAME.notes);
+      delete this.cells[i].dataset.notes;
 
       if (sudokuValuesString[i] !== ".") {
         this.cells[i].classList.add(CLASS_NAME.locked);
@@ -55,20 +62,6 @@ class State {
     }
 
     this.currentCell = this.cells[0];
-  };
-
-  changeCurrentCellValue = (number) => {
-    if (this.notesIsActive) {
-      this.updateCurrentNoteDataset(number);
-    } else {
-      if (this.currentCell.innerHTML == number) {
-        this.currentCell.innerHTML = "";
-      } else {
-        this.currentCell.innerHTML = number;
-      }
-    }
-
-    highlightCells(this.cells, this.currentCell);
   };
 
   updateCurrentNoteDataset = (number) => {
@@ -90,24 +83,24 @@ class State {
 
     if (currentCellNotes.length) {
       this.currentCell.dataset.notes = JSON.stringify(currentCellNotes);
-      this.currentCell.classList.add("notes");
-      this.populateCurrentCellNotes(currentCellNotes);
+      this.currentCell.classList.add(CLASS_NAME.notes);
+      this.populateCurrentCellWithNotes(currentCellNotes);
     } else {
-      this.deleteCurrentNoteDataset();
       this.currentCell.innerHTML = "";
+      this.deleteCurrentNoteDataset();
     }
   };
 
-  deleteCurrentNoteDataset = () => {
-    delete this.currentCell.dataset.notes;
-    this.#currentCell.classList.remove("notes");
-  };
-
-  populateCurrentCellNotes(currentCellNotes) {
+  populateCurrentCellWithNotes(currentCellNotes) {
     this.currentCell.innerHTML = "";
 
     for (let i = 0; i < 9; i++) {
-      let noteDiv = createDomElement("div", "note", "", this.currentCell);
+      let noteDiv = createDomElement(
+        "div",
+        CLASS_NAME.note,
+        "",
+        this.currentCell
+      );
     }
     for (let i = 0; i < currentCellNotes.length; i++) {
       const children = this.currentCell.children;
@@ -116,11 +109,51 @@ class State {
     }
   }
 
+  deleteCurrentNoteDataset = () => {
+    delete this.currentCell.dataset.notes;
+    this.currentCell.classList.remove(CLASS_NAME.notes);
+  };
+
   eraseCurrentCellValue = () => {
     if (!this.currentCell.classList.contains(CLASS_NAME.locked)) {
       this.currentCell.innerHTML = "";
+      this.deleteCurrentNoteDataset();
       highlightCells(this.cells, this.currentCell);
     }
+  };
+
+  changeCurrentCellValue = (number) => {
+    this.addToHistory(this.currentCell);
+
+    if (this.notesIsActive) {
+      this.updateCurrentNoteDataset(number);
+    } else {
+      this.deleteCurrentNoteDataset();
+
+      if (this.currentCell.innerHTML == number) {
+        this.currentCell.innerHTML = "";
+      } else {
+        this.currentCell.innerHTML = number;
+      }
+    }
+
+    highlightCells(this.cells, this.currentCell);
+  };
+
+  addToHistory = (currentCell) => {
+    let historyItem = {};
+    const currentCellPosition = this.getCellPosition(currentCell);
+
+    if (currentCell.dataset.notes) {
+      historyItem[currentCellPosition.Y * 9 + currentCellPosition.X] =
+        currentCell.dataset.notes;
+    } else {
+      historyItem[currentCellPosition.Y * 9 + currentCellPosition.X] =
+        currentCell.innerHTML;
+    }
+
+    this.gameHistory.push(historyItem);
+    console.log(this.gameHistory);
   };
 }
 

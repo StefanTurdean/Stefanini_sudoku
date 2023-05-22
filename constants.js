@@ -5,6 +5,10 @@ export const CLASS_NAME = {
   square: "square",
   cell: "cell",
 
+  iconActive: "icon-active",
+  notes: "notes",
+  note: "note",
+
   locked: "locked",
 };
 

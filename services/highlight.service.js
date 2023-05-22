@@ -1,12 +1,12 @@
 import { HIGHLIGHT_CLASS_NAME } from "../constants.js";
 
 function highlightSimilarNumbers(cells, currentCell) {
-  if (currentCell.innerText === "") {
+  if (currentCell.innerHTML === "") {
     return;
   }
 
   for (let i = 0; i < cells.length; i++) {
-    if (currentCell.innerText === cells[i].innerText) {
+    if (currentCell.innerHTML === cells[i].innerHTML) {
       cells[i].classList.add(HIGHLIGHT_CLASS_NAME.similar);
     }
   }
@@ -20,7 +20,7 @@ function checkForMistakes(highlightedCells, currentCell) {
       const highlightedCell = highlightedSet[j];
 
       if (currentCell.id !== highlightedCell.id) {
-        if (currentCell.innerText === highlightedCell.innerText) {
+        if (currentCell.innerHTML === highlightedCell.innerHTML) {
           currentCell.classList.add(HIGHLIGHT_CLASS_NAME.invalid);
           highlightedCell.classList.add(HIGHLIGHT_CLASS_NAME.invalid);
         }
@@ -51,8 +51,8 @@ function reviewCellValidation(cells) {
 
         if (currentCell.id !== highlightedCell.id) {
           if (
-            currentCell.innerText === highlightedCell.innerText &&
-            currentCell.innerText !== ""
+            currentCell.innerHTML === highlightedCell.innerHTML &&
+            currentCell.innerHTML !== ""
           ) {
             isStillWrong = true;
           }
@@ -115,12 +115,11 @@ export function highlightCells(cells, currentCell) {
   addHighlight(cellsToHighlight);
   reviewCellValidation(cells);
 
-  //
   highlightSimilarNumbers(cells, currentCell);
 
-  if (currentCell.innerHtml !== "") {
+  if (currentCell.innerHTML !== "") {
     checkForMistakes(cellsToHighlight, currentCell);
   }
-  //
+
   currentCell.classList.add(HIGHLIGHT_CLASS_NAME.selected);
 }
