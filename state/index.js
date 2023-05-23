@@ -3,6 +3,11 @@ import { highlightCells } from "../services/highlight.service.js";
 import { createDomElement } from "../services/layout.service.js";
 import { generateSudokuValues } from "../services/sudoku.service.js";
 
+const HISTORY_VALUE_KEY = {
+  notes: "notes",
+  value: "value",
+};
+
 class State {
   #currentCell;
   #currentCellPosition;
@@ -38,8 +43,6 @@ class State {
 
   initialize = () => {
     this.cells = [...document.querySelectorAll(`.${CLASS_NAME.cell}`)];
-
-    console.log(this.cells);
 
     this.startNewGame();
   };
@@ -84,26 +87,22 @@ class State {
     if (currentCellNotes.length) {
       this.currentCell.dataset.notes = JSON.stringify(currentCellNotes);
       this.currentCell.classList.add(CLASS_NAME.notes);
-      this.populateCurrentCellWithNotes(currentCellNotes);
+      this.populateCurrentCellWithNotes(currentCellNotes, this.currentCell);
     } else {
       this.currentCell.innerHTML = "";
       this.deleteCurrentNoteDataset();
     }
   };
 
-  populateCurrentCellWithNotes(currentCellNotes) {
-    this.currentCell.innerHTML = "";
+  populateCurrentCellWithNotes(currentCellNotes, targetCell) {
+    targetCell.innerHTML = "";
 
     for (let i = 0; i < 9; i++) {
-      let noteDiv = createDomElement(
-        "div",
-        CLASS_NAME.note,
-        "",
-        this.currentCell
-      );
+      let noteDiv = createDomElement("div", CLASS_NAME.note, "", targetCell);
     }
+
     for (let i = 0; i < currentCellNotes.length; i++) {
-      const children = this.currentCell.children;
+      const children = targetCell.children;
 
       children[currentCellNotes[i] - 1].innerHTML = currentCellNotes[i];
     }
@@ -115,6 +114,8 @@ class State {
   };
 
   eraseCurrentCellValue = () => {
+    this.addToHistory(this.currentCell);
+
     if (!this.currentCell.classList.contains(CLASS_NAME.locked)) {
       this.currentCell.innerHTML = "";
       this.deleteCurrentNoteDataset();
@@ -141,19 +142,50 @@ class State {
   };
 
   addToHistory = (currentCell) => {
-    let historyItem = {};
-    const currentCellPosition = this.getCellPosition(currentCell);
+    const historyItem = {
+      id: currentCell.id,
+    };
 
     if (currentCell.dataset.notes) {
-      historyItem[currentCellPosition.Y * 9 + currentCellPosition.X] =
-        currentCell.dataset.notes;
+      historyItem["key"] = HISTORY_VALUE_KEY.notes;
+      historyItem[HISTORY_VALUE_KEY.notes] = JSON.parse(
+        currentCell.dataset.notes
+      );
     } else {
-      historyItem[currentCellPosition.Y * 9 + currentCellPosition.X] =
-        currentCell.innerHTML;
+      historyItem["key"] = HISTORY_VALUE_KEY.value;
+      historyItem[HISTORY_VALUE_KEY.value] = currentCell.innerHTML;
     }
 
     this.gameHistory.push(historyItem);
-    console.log(this.gameHistory);
+  };
+
+  unDo = () => {
+    if (!this.gameHistory.length) {
+      return;
+    }
+
+    const latestCellInHistory = this.gameHistory.pop();
+
+    const lastCell = this.cells.find(
+      (cell) => cell.id === latestCellInHistory.id
+    );
+
+    lastCell.innerHTML = "";
+    delete lastCell.dataset.notes;
+    lastCell.classList.remove(CLASS_NAME.notes);
+
+    if (latestCellInHistory.key === HISTORY_VALUE_KEY.notes) {
+      lastCell.classList.add(CLASS_NAME.notes);
+      lastCell.dataset.notes = JSON.stringify(latestCellInHistory.notes);
+
+      this.populateCurrentCellWithNotes(latestCellInHistory.notes, lastCell);
+    }
+
+    if (latestCellInHistory.key === HISTORY_VALUE_KEY.value) {
+      lastCell.innerHTML = latestCellInHistory.value;
+    }
+
+    this.currentCell = lastCell;
   };
 }
 

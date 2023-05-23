@@ -15,7 +15,9 @@ function createControlIcons(parentElement) {
     {
       name: "Undo",
       imagePath: "/img/undo.png",
-      callBackFunction: () => {},
+      callBackFunction: () => {
+        state.unDo();
+      },
     },
     {
       name: "Erase",
@@ -28,8 +30,9 @@ function createControlIcons(parentElement) {
       name: "Notes",
       imagePath: "/img/notes.png",
       callBackFunction: (event) => {
-        document;
-        event.target.classList.toggle(CLASS_NAME.iconActive);
+        document
+          .getElementById("notes")
+          .classList.toggle(CLASS_NAME.iconActive);
         state.notesIsActive = !state.notesIsActive;
       },
     },

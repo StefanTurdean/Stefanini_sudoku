@@ -1,10 +1,6 @@
-import { HIGHLIGHT_CLASS_NAME } from "../constants.js";
+import { CLASS_NAME, HIGHLIGHT_CLASS_NAME } from "../constants.js";
 
 function highlightSimilarNumbers(cells, currentCell) {
-  if (currentCell.innerHTML === "") {
-    return;
-  }
-
   for (let i = 0; i < cells.length; i++) {
     if (currentCell.innerHTML === cells[i].innerHTML) {
       cells[i].classList.add(HIGHLIGHT_CLASS_NAME.similar);
@@ -115,9 +111,11 @@ export function highlightCells(cells, currentCell) {
   addHighlight(cellsToHighlight);
   reviewCellValidation(cells);
 
-  highlightSimilarNumbers(cells, currentCell);
-
-  if (currentCell.innerHTML !== "") {
+  if (
+    currentCell.innerHTML &&
+    !currentCell.classList.contains(CLASS_NAME.notes)
+  ) {
+    highlightSimilarNumbers(cells, currentCell);
     checkForMistakes(cellsToHighlight, currentCell);
   }
 
