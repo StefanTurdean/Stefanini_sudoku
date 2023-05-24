@@ -87,14 +87,14 @@ class State {
     if (currentCellNotes.length) {
       this.currentCell.dataset.notes = JSON.stringify(currentCellNotes);
       this.currentCell.classList.add(CLASS_NAME.notes);
-      this.populateCurrentCellWithNotes(currentCellNotes, this.currentCell);
+      this.populateCellWithNotes(currentCellNotes, this.currentCell);
     } else {
       this.currentCell.innerHTML = "";
       this.deleteCurrentNoteDataset();
     }
   };
 
-  populateCurrentCellWithNotes(currentCellNotes, targetCell) {
+  populateCellWithNotes(currentCellNotes, targetCell) {
     targetCell.innerHTML = "";
 
     for (let i = 0; i < 9; i++) {
@@ -151,6 +151,8 @@ class State {
       historyItem[HISTORY_VALUE_KEY.notes] = JSON.parse(
         currentCell.dataset.notes
       );
+
+      console.log(historyItem[HISTORY_VALUE_KEY.notes]);
     } else {
       historyItem["key"] = HISTORY_VALUE_KEY.value;
       historyItem[HISTORY_VALUE_KEY.value] = currentCell.innerHTML;
@@ -159,30 +161,31 @@ class State {
     this.gameHistory.push(historyItem);
   };
 
-  unDo = () => {
+  undo = () => {
     if (!this.gameHistory.length) {
       return;
     }
 
-    const latestCellInHistory = this.gameHistory.pop();
+    const lastChange = this.gameHistory.pop();
 
-    const lastCell = this.cells.find(
-      (cell) => cell.id === latestCellInHistory.id
-    );
+    const lastCell = this.cells.find((cell) => cell.id === lastChange.id);
 
     lastCell.innerHTML = "";
     delete lastCell.dataset.notes;
     lastCell.classList.remove(CLASS_NAME.notes);
 
-    if (latestCellInHistory.key === HISTORY_VALUE_KEY.notes) {
-      lastCell.classList.add(CLASS_NAME.notes);
-      lastCell.dataset.notes = JSON.stringify(latestCellInHistory.notes);
+    switch (lastChange.key) {
+      case HISTORY_VALUE_KEY.notes:
+        lastCell.classList.add(CLASS_NAME.notes);
+        lastCell.dataset.notes = JSON.stringify(lastChange.notes);
 
-      this.populateCurrentCellWithNotes(latestCellInHistory.notes, lastCell);
-    }
-
-    if (latestCellInHistory.key === HISTORY_VALUE_KEY.value) {
-      lastCell.innerHTML = latestCellInHistory.value;
+        this.populateCellWithNotes(lastChange.notes, lastCell);
+        break;
+      case HISTORY_VALUE_KEY.value:
+        lastCell.innerHTML = lastChange.value;
+        break;
+      default:
+        console.error(`unknown history value key`);
     }
 
     this.currentCell = lastCell;

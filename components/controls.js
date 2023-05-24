@@ -16,7 +16,7 @@ function createControlIcons(parentElement) {
       name: "Undo",
       imagePath: "/img/undo.png",
       callBackFunction: () => {
-        state.unDo();
+        state.undo();
       },
     },
     {
