@@ -29,7 +29,12 @@ function createControlIcons(parentElement) {
     {
       name: "Notes",
       imagePath: "/img/notes.png",
-      callBackFunction: (event) => {
+      callBackFunction: () => {
+        if (!state.isGameRunning) {
+          state.isGameRunning = !state.isGameRunning;
+          return;
+        }
+
         document
           .getElementById("notes")
           .classList.toggle(CLASS_NAME.iconActive);

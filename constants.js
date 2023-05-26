@@ -23,6 +23,7 @@ export const TIMER_CLASS_NAME = {
   wrapper: "timer-wrapper",
   background: "timer-background",
   icon: "timer-icon",
+  span: "timer-span",
 };
 
 export const CONTROL_CLASS_NAME = {

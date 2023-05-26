@@ -68,9 +68,23 @@ function createSquares(parentElement) {
   }
 }
 
+function createPauseScreen(parentElement) {
+  const pauseScreen = createDomElement(
+    "div",
+    "pauseScreen",
+    "pauseScreen",
+    parentElement
+  );
+
+  pauseScreen.addEventListener("click", () => {
+    state.isGameRunning = true;
+  });
+}
+
 function createSudokuGridElement() {
   const sudokuGameGrid = createDomElement("div", CLASS_NAME.sudokuGame);
 
+  createPauseScreen(sudokuGameGrid);
   createSquares(sudokuGameGrid);
 
   return sudokuGameGrid;
@@ -79,3 +93,7 @@ function createSudokuGridElement() {
 const sudokuGrid = createSudokuGridElement();
 
 export default sudokuGrid;
+
+// recreate the grid
+// change color to transparent
+// create a new grid and place it on top the the current one

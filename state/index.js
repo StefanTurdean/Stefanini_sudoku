@@ -1,4 +1,5 @@
-import { CLASS_NAME } from "../constants.js";
+import { CLASS_NAME, TIMER_CLASS_NAME } from "../constants.js";
+import { formatTimer } from "../services/formatTime.service.js";
 import { highlightCells } from "../services/highlight.service.js";
 import { createDomElement } from "../services/layout.service.js";
 import { generateSudokuValues } from "../services/sudoku.service.js";
@@ -7,17 +8,24 @@ const HISTORY_VALUE_KEY = {
   notes: "notes",
   value: "value",
 };
-
 class State {
   #currentCell;
   #currentCellPosition;
+  #isGameRunning;
   notesIsActive;
   gameHistory;
   cells;
+  gameTime;
+  timerId;
+  timerText;
 
   constructor() {
     this.notesIsActive = false;
     this.gameHistory = [];
+    this.gameTime = {
+      seconds: 0,
+      minutes: 0,
+    };
   }
 
   set currentCell(cell) {
@@ -25,6 +33,27 @@ class State {
     this.#currentCellPosition = this.getCellPosition(cell);
 
     highlightCells(this.cells, this.#currentCell);
+  }
+
+  set isGameRunning(boolean) {
+    console.log(this.isGameRunning);
+    this.#isGameRunning = boolean;
+
+    if (this.isGameRunning) {
+      document.getElementById("pauseScreen").classList.remove("visible");
+
+      this.timerId = setInterval(this.incrementTimer, 1000);
+      console.log("timer running");
+    } else {
+      document.getElementById("pauseScreen").classList.add("visible");
+      clearInterval(this.timerId);
+      this.timerId = null;
+      console.log("timer should stop");
+    }
+  }
+
+  get isGameRunning() {
+    return this.#isGameRunning;
   }
 
   get currentCell() {
@@ -49,7 +78,22 @@ class State {
 
   startNewGame = () => {
     const sudokuValuesString = generateSudokuValues();
+    this.timerText = document.getElementById(TIMER_CLASS_NAME.span);
+
     this.gameHistory.length = 0;
+    this.gameTime.seconds = 0;
+    this.gameTime.minutes = 0;
+
+    this.timerText.innerText = formatTimer(
+      this.gameTime.seconds,
+      this.gameTime.minutes
+    );
+
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
+
+    this.isGameRunning = true;
 
     for (let i = 0; i < this.cells.length; i++) {
       this.cells[i].classList.remove(CLASS_NAME.locked);
@@ -114,6 +158,11 @@ class State {
   };
 
   eraseCurrentCellValue = () => {
+    if (!this.isGameRunning) {
+      this.isGameRunning = true;
+      return;
+    }
+
     this.addToHistory(this.currentCell);
 
     if (!this.currentCell.classList.contains(CLASS_NAME.locked)) {
@@ -124,6 +173,11 @@ class State {
   };
 
   changeCurrentCellValue = (number) => {
+    if (!this.isGameRunning) {
+      this.isGameRunning = true;
+      return;
+    }
+
     this.addToHistory(this.currentCell);
 
     if (this.notesIsActive) {
@@ -162,6 +216,11 @@ class State {
   };
 
   undo = () => {
+    if (!this.isGameRunning) {
+      this.isGameRunning = true;
+      return;
+    }
+
     if (!this.gameHistory.length) {
       return;
     }
@@ -189,6 +248,20 @@ class State {
     }
 
     this.currentCell = lastCell;
+  };
+
+  incrementTimer = () => {
+    this.gameTime.seconds += 1;
+
+    if (this.gameTime.seconds % 60 === 0) {
+      this.gameTime.seconds = 0;
+      this.gameTime.minutes += 1;
+    }
+
+    this.timerText.innerText = formatTimer(
+      this.gameTime.seconds,
+      this.gameTime.minutes
+    );
   };
 }
 

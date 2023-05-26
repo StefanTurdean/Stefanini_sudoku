@@ -1,37 +1,9 @@
 import { TIMER_CLASS_NAME } from "../constants.js";
+import { formatTimer } from "../services/formatTime.service.js";
 import { createDomElement } from "../services/layout.service.js";
+import state from "../state/index.js";
 
-let seconds = 0;
-let minutes = 0;
 let timerId;
-
-let timerIsRunning = true;
-
-function formatTimer() {
-  let formattedSecond = seconds;
-  let formattedMinutes = minutes;
-
-  if (seconds < 10) {
-    formattedSecond = `0${formattedSecond}`;
-  }
-
-  if (minutes < 10) {
-    formattedMinutes = `0${formattedMinutes}`;
-  }
-
-  incrementTimer();
-
-  return `${formattedMinutes}:${formattedSecond}`;
-}
-
-function incrementTimer() {
-  seconds += 1;
-
-  if (seconds % 60 === 0) {
-    seconds = 0;
-    minutes += 1;
-  }
-}
 
 function createTimeWrapper(parentElement) {
   const timerWrapper = createDomElement(
@@ -44,19 +16,14 @@ function createTimeWrapper(parentElement) {
   const timerSpan = createDomElement(
     "span",
     TIMER_CLASS_NAME.span,
-    "",
+    TIMER_CLASS_NAME.span,
     timerWrapper
   );
 
-  timerSpan.innerText = formatTimer();
-
-  function setTimerText() {
-    timerSpan.innerText = formatTimer();
-  }
-
-  timerId = setInterval(setTimerText, 1000);
-
-  console.log(timerId);
+  timerSpan.innerText = formatTimer(
+    state.gameTime.seconds,
+    state.gameTime.minutes
+  );
 
   const timerBackground = createDomElement(
     "div",
@@ -66,16 +33,7 @@ function createTimeWrapper(parentElement) {
   );
 
   timerBackground.addEventListener("click", () => {
-    if (!timerIsRunning) {
-      timerId = setInterval(setTimerText, 1000);
-      console.log("timer running");
-    } else {
-      clearInterval(timerId);
-      timerId = null;
-      console.log("timer should stop");
-    }
-
-    timerIsRunning = !timerIsRunning;
+    state.isGameRunning = !state.isGameRunning;
   });
 
   const timerIcon = createDomElement(
