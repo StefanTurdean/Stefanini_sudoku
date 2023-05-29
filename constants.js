@@ -4,12 +4,15 @@ export const CLASS_NAME = {
   sudokuGame: "sudoku-game",
   square: "square",
   cell: "cell",
+  cellContent: "cell-content",
+  noBackground: "no-background",
 
   iconActive: "icon-active",
   notes: "notes",
   note: "note",
 
   locked: "locked",
+  hidden: "hidden",
 };
 
 export const HIGHLIGHT_CLASS_NAME = {

@@ -40,6 +40,12 @@ function generateCellsIds() {
   return idFormatter(cellsId);
 }
 
+function createCellContent() {
+  const cellContent = createDomElement("div", CLASS_NAME.cellContent, "", "");
+
+  return cellContent;
+}
+
 function createSquares(parentElement) {
   const cellsId = generateCellsIds();
 
@@ -64,6 +70,10 @@ function createSquares(parentElement) {
       cell.addEventListener("click", () => {
         state.currentCell = cell;
       });
+
+      const cellContent = createCellContent();
+
+      cell.appendChild(cellContent);
     }
   }
 }
@@ -93,7 +103,3 @@ function createSudokuGridElement() {
 const sudokuGrid = createSudokuGridElement();
 
 export default sudokuGrid;
-
-// recreate the grid
-// change color to transparent
-// create a new grid and place it on top the the current one

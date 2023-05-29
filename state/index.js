@@ -10,11 +10,12 @@ const HISTORY_VALUE_KEY = {
 };
 class State {
   #currentCell;
-  #currentCellPosition;
+  #currentCellContent;
   #isGameRunning;
   notesIsActive;
   gameHistory;
   cells;
+  cellsContent;
   gameTime;
   timerId;
   timerText;
@@ -30,26 +31,24 @@ class State {
 
   set currentCell(cell) {
     this.#currentCell = cell;
-    this.#currentCellPosition = this.getCellPosition(cell);
+    this.#currentCellContent = cell.children[0];
 
     highlightCells(this.cells, this.#currentCell);
   }
 
   set isGameRunning(boolean) {
-    console.log(this.isGameRunning);
     this.#isGameRunning = boolean;
 
     if (this.isGameRunning) {
       document.getElementById("pauseScreen").classList.remove("visible");
-
       this.timerId = setInterval(this.incrementTimer, 1000);
-      console.log("timer running");
     } else {
       document.getElementById("pauseScreen").classList.add("visible");
       clearInterval(this.timerId);
       this.timerId = null;
-      console.log("timer should stop");
     }
+
+    this.toggleCellsContent(this.#isGameRunning);
   }
 
   get isGameRunning() {
@@ -60,8 +59,8 @@ class State {
     return this.#currentCell;
   }
 
-  get currentCellPosition() {
-    return this.#currentCellPosition;
+  get currentCellContent() {
+    return this.#currentCellContent;
   }
 
   getCellPosition(cell) {
@@ -72,6 +71,9 @@ class State {
 
   initialize = () => {
     this.cells = [...document.querySelectorAll(`.${CLASS_NAME.cell}`)];
+    this.cellsContent = [
+      ...document.querySelectorAll(`.${CLASS_NAME.cellContent}`),
+    ];
 
     this.startNewGame();
   };
@@ -97,18 +99,19 @@ class State {
 
     for (let i = 0; i < this.cells.length; i++) {
       this.cells[i].classList.remove(CLASS_NAME.locked);
-      this.cells[i].classList.remove(CLASS_NAME.notes);
+      this.cellsContent[i].classList.remove(CLASS_NAME.notes);
       delete this.cells[i].dataset.notes;
 
       if (sudokuValuesString[i] !== ".") {
         this.cells[i].classList.add(CLASS_NAME.locked);
-        this.cells[i].innerText = sudokuValuesString[i];
+        this.cellsContent[i].innerText = sudokuValuesString[i];
       } else {
-        this.cells[i].innerText = "";
+        this.cellsContent[i].innerText = "";
       }
     }
 
     this.currentCell = this.cells[0];
+    this.#currentCellContent = this.cellsContent[0];
   };
 
   updateCurrentNoteDataset = (number) => {
@@ -130,10 +133,10 @@ class State {
 
     if (currentCellNotes.length) {
       this.currentCell.dataset.notes = JSON.stringify(currentCellNotes);
-      this.currentCell.classList.add(CLASS_NAME.notes);
-      this.populateCellWithNotes(currentCellNotes, this.currentCell);
+      this.currentCellContent.classList.add(CLASS_NAME.notes);
+      this.populateCellWithNotes(currentCellNotes, this.currentCellContent);
     } else {
-      this.currentCell.innerHTML = "";
+      this.currentCellContent.innerHTML = "";
       this.deleteCurrentNoteDataset();
     }
   };
@@ -154,30 +157,20 @@ class State {
 
   deleteCurrentNoteDataset = () => {
     delete this.currentCell.dataset.notes;
-    this.currentCell.classList.remove(CLASS_NAME.notes);
+    this.currentCellContent.classList.remove(CLASS_NAME.notes);
   };
 
   eraseCurrentCellValue = () => {
-    if (!this.isGameRunning) {
-      this.isGameRunning = true;
-      return;
-    }
-
     this.addToHistory(this.currentCell);
 
     if (!this.currentCell.classList.contains(CLASS_NAME.locked)) {
-      this.currentCell.innerHTML = "";
+      this.currentCellContent.innerHTML = "";
       this.deleteCurrentNoteDataset();
       highlightCells(this.cells, this.currentCell);
     }
   };
 
   changeCurrentCellValue = (number) => {
-    if (!this.isGameRunning) {
-      this.isGameRunning = true;
-      return;
-    }
-
     this.addToHistory(this.currentCell);
 
     if (this.notesIsActive) {
@@ -185,10 +178,10 @@ class State {
     } else {
       this.deleteCurrentNoteDataset();
 
-      if (this.currentCell.innerHTML == number) {
-        this.currentCell.innerHTML = "";
+      if (this.currentCellContent.innerHTML == number) {
+        this.currentCellContent.innerHTML = "";
       } else {
-        this.currentCell.innerHTML = number;
+        this.currentCellContent.innerHTML = number;
       }
     }
 
@@ -209,7 +202,7 @@ class State {
       console.log(historyItem[HISTORY_VALUE_KEY.notes]);
     } else {
       historyItem["key"] = HISTORY_VALUE_KEY.value;
-      historyItem[HISTORY_VALUE_KEY.value] = currentCell.innerHTML;
+      historyItem[HISTORY_VALUE_KEY.value] = this.currentCellContent.innerHTML;
     }
 
     this.gameHistory.push(historyItem);
@@ -228,20 +221,21 @@ class State {
     const lastChange = this.gameHistory.pop();
 
     const lastCell = this.cells.find((cell) => cell.id === lastChange.id);
+    const lastCellContent = lastCell.children[0];
 
-    lastCell.innerHTML = "";
+    lastCell.lastCellContent = "";
     delete lastCell.dataset.notes;
-    lastCell.classList.remove(CLASS_NAME.notes);
+    lastCellContent.classList.remove(CLASS_NAME.notes);
 
     switch (lastChange.key) {
       case HISTORY_VALUE_KEY.notes:
-        lastCell.classList.add(CLASS_NAME.notes);
+        lastCellContent.classList.add(CLASS_NAME.notes);
         lastCell.dataset.notes = JSON.stringify(lastChange.notes);
 
-        this.populateCellWithNotes(lastChange.notes, lastCell);
+        this.populateCellWithNotes(lastChange.notes, lastCellContent);
         break;
       case HISTORY_VALUE_KEY.value:
-        lastCell.innerHTML = lastChange.value;
+        lastCellContent.innerHTML = lastChange.value;
         break;
       default:
         console.error(`unknown history value key`);
@@ -262,6 +256,20 @@ class State {
       this.gameTime.seconds,
       this.gameTime.minutes
     );
+  };
+
+  toggleCellsContent = (isGameRunning) => {
+    if (isGameRunning) {
+      for (let i = 0; i < this.cells.length; i++) {
+        this.cells[i].classList.remove(CLASS_NAME.noBackground);
+        this.cellsContent[i].classList.remove(CLASS_NAME.hidden);
+      }
+    } else {
+      for (let i = 0; i < this.cells.length; i++) {
+        this.cells[i].classList.add(CLASS_NAME.noBackground);
+        this.cellsContent[i].classList.add(CLASS_NAME.hidden);
+      }
+    }
   };
 }
 

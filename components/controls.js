@@ -1,5 +1,10 @@
 import { createDomElement } from "../services/layout.service.js";
-import { handleNumpadClick } from "../services/eventHandler.service.js";
+import {
+  handleEraseClick,
+  handleNotesClick,
+  handleNumpadClick,
+  handleUndoClick,
+} from "../services/eventHandler.service.js";
 import { CLASS_NAME, CONTROL_CLASS_NAME, ELEMENT_ID } from "../constants.js";
 import state from "../state/index.js";
 
@@ -16,29 +21,21 @@ function createControlIcons(parentElement) {
       name: "Undo",
       imagePath: "/img/undo.png",
       callBackFunction: () => {
-        state.undo();
+        handleUndoClick();
       },
     },
     {
       name: "Erase",
       imagePath: "/img/eraser.png",
       callBackFunction: () => {
-        state.eraseCurrentCellValue();
+        handleEraseClick();
       },
     },
     {
       name: "Notes",
       imagePath: "/img/notes.png",
       callBackFunction: () => {
-        if (!state.isGameRunning) {
-          state.isGameRunning = !state.isGameRunning;
-          return;
-        }
-
-        document
-          .getElementById("notes")
-          .classList.toggle(CLASS_NAME.iconActive);
-        state.notesIsActive = !state.notesIsActive;
+        handleNotesClick();
       },
     },
   ];

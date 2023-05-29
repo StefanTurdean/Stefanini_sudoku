@@ -9,6 +9,11 @@ const KEYBOARD_ARROW_KEY = Object.freeze({
 });
 
 export function handleArrowPress(event) {
+  if (!state.isGameRunning) {
+    state.isGameRunning = true;
+    return;
+  }
+
   const moveIncrement = 1;
 
   const gridBorderMin = 0;
@@ -56,12 +61,22 @@ export function handleArrowPress(event) {
 }
 
 export function handleNumpadClick(number) {
+  if (!state.isGameRunning) {
+    state.isGameRunning = true;
+    return;
+  }
+
   if (!state.currentCell.classList.contains(CLASS_NAME.locked)) {
     state.changeCurrentCellValue(number);
   }
 }
 
 export function handleKeyPress(event) {
+  if (!state.isGameRunning) {
+    state.isGameRunning = true;
+    return;
+  }
+
   if (!state.currentCell.classList.contains(CLASS_NAME.locked)) {
     const numberKeys = /^[1-9]$/;
 
@@ -69,6 +84,34 @@ export function handleKeyPress(event) {
       state.changeCurrentCellValue(Number(event.key));
     }
   }
+}
+
+export function handleUndoClick() {
+  if (!state.isGameRunning) {
+    state.isGameRunning = true;
+    return;
+  }
+
+  state.undo();
+}
+
+export function handleEraseClick() {
+  if (!state.isGameRunning) {
+    state.isGameRunning = true;
+    return;
+  }
+
+  state.eraseCurrentCellValue();
+}
+
+export function handleNotesClick() {
+  if (!state.isGameRunning) {
+    state.isGameRunning = !state.isGameRunning;
+    return;
+  }
+
+  document.getElementById("notes").classList.toggle(CLASS_NAME.iconActive);
+  state.notesIsActive = !state.notesIsActive;
 }
 
 export function attacheDocumentEventHandlers() {
