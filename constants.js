@@ -23,9 +23,11 @@ export const HIGHLIGHT_CLASS_NAME = {
 };
 
 export const TIMER_CLASS_NAME = {
+  info: "info",
   wrapper: "timer-wrapper",
   background: "timer-background",
-  icon: "timer-icon",
+  pause: "timer-pause",
+  play: "timer-play",
   span: "timer-span",
 };
 
@@ -42,4 +44,6 @@ export const CONTROL_CLASS_NAME = {
 
 export const ELEMENT_ID = {
   square: "square",
+  notes: "notes",
+  timerIcon: "timer-icon",
 };

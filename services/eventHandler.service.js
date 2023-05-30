@@ -1,4 +1,4 @@
-import { CLASS_NAME } from "../constants.js";
+import { CLASS_NAME, ELEMENT_ID, TIMER_CLASS_NAME } from "../constants.js";
 import state from "../state/index.js";
 
 const KEYBOARD_ARROW_KEY = Object.freeze({
@@ -10,6 +10,9 @@ const KEYBOARD_ARROW_KEY = Object.freeze({
 
 export function handleArrowPress(event) {
   if (!state.isGameRunning) {
+    const timeIcon = document.getElementById(ELEMENT_ID.timerIcon);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.pause);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.play);
     state.isGameRunning = true;
     return;
   }
@@ -62,6 +65,9 @@ export function handleArrowPress(event) {
 
 export function handleNumpadClick(number) {
   if (!state.isGameRunning) {
+    const timeIcon = document.getElementById(ELEMENT_ID.timerIcon);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.pause);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.play);
     state.isGameRunning = true;
     return;
   }
@@ -73,6 +79,9 @@ export function handleNumpadClick(number) {
 
 export function handleKeyPress(event) {
   if (!state.isGameRunning) {
+    const timeIcon = document.getElementById(ELEMENT_ID.timerIcon);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.pause);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.play);
     state.isGameRunning = true;
     return;
   }
@@ -88,6 +97,9 @@ export function handleKeyPress(event) {
 
 export function handleUndoClick() {
   if (!state.isGameRunning) {
+    const timeIcon = document.getElementById(ELEMENT_ID.timerIcon);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.pause);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.play);
     state.isGameRunning = true;
     return;
   }
@@ -97,6 +109,9 @@ export function handleUndoClick() {
 
 export function handleEraseClick() {
   if (!state.isGameRunning) {
+    const timeIcon = document.getElementById(ELEMENT_ID.timerIcon);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.pause);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.play);
     state.isGameRunning = true;
     return;
   }
@@ -106,15 +121,27 @@ export function handleEraseClick() {
 
 export function handleNotesClick() {
   if (!state.isGameRunning) {
-    state.isGameRunning = !state.isGameRunning;
+    const timeIcon = document.getElementById(ELEMENT_ID.timerIcon);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.pause);
+    timeIcon.classList.toggle(TIMER_CLASS_NAME.play);
+    state.isGameRunning = true;
     return;
   }
 
-  document.getElementById("notes").classList.toggle(CLASS_NAME.iconActive);
+  document
+    .getElementById(ELEMENT_ID.notes)
+    .classList.toggle(CLASS_NAME.iconActive);
   state.notesIsActive = !state.notesIsActive;
 }
 
 export function attacheDocumentEventHandlers() {
   document.addEventListener("keydown", handleArrowPress);
   document.addEventListener("keydown", handleKeyPress);
+}
+
+export function handleTimerClick() {
+  const timeIcon = document.getElementById(ELEMENT_ID.timerIcon);
+  timeIcon.classList.toggle(TIMER_CLASS_NAME.pause);
+  timeIcon.classList.toggle(TIMER_CLASS_NAME.play);
+  state.isGameRunning = !state.isGameRunning;
 }

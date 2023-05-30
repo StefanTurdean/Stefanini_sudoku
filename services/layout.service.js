@@ -1,9 +1,9 @@
 import createTimeSection from "../components/timer.js";
 import createGameWrapper from "../components/gameWraper.js";
-import { CLASS_NAME } from "../constants.js";
+import { CLASS_NAME, TIMER_CLASS_NAME } from "../constants.js";
 
 function createLayoutElements() {
-  const timeSection = createTimeSection("div", CLASS_NAME.sudokuInfo);
+  const timeSection = createTimeSection("div", TIMER_CLASS_NAME.info);
 
   const gameWrapper = createGameWrapper("div", CLASS_NAME.gameWrapper);
 

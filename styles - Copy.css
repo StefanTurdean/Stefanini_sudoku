@@ -1,0 +1,321 @@
+:root {
+  --cell-background: #fff;
+  --cell-highlight: #e4ebf2;
+  --cell-similar: #c2ddf8;
+  --cell-invalid-background: #f1d0d6;
+  --cell-invalid-background: #f1d0d6;
+  --cell-invalid-color: #d5656f;
+  --cell-selected: #96cfe2;
+  --cell-locked: #000;
+
+  --time-background: #eaeef4;
+  --time-background-hover: #dce3ed;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: "Helvetica", Sans-Serif;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sudoku-wrapper {
+  width: 100%;
+  height: 100%;
+  max-width: 860px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.undefined {
+  width: 100%;
+}
+
+.timer-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+
+  padding: 0 30px;
+}
+
+.timer-background {
+  width: 25px;
+  height: 25px;
+  background: var(--time-background);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+.timer-background:hover {
+  background-color: var(--time-background-hover);
+}
+
+.timer-icon {
+  width: 75%;
+  height: 75%;
+  background-image: url("/img/211871_pause_icon.png");
+  background-size: contain;
+  background-position: center;
+}
+
+.game-wrapper {
+  display: flex;
+  margin: 0 10px;
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+}
+
+/* sudoku grid */
+.sudoku-game {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  max-height: 500px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.square {
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  flex-grow: 100%;
+  border: 0.5px solid black;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid lightgray;
+  background-color: var(--cell-background-color);
+  font-size: 30px;
+  line-height: 0;
+  color: #3070db;
+  cursor: pointer;
+}
+
+.cell-content {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.controls {
+  width: 100%;
+  height: 100%;
+  flex: 40%;
+  padding: 10px 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.items-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #0072e3;
+}
+
+.item-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaeef4;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.item-button:hover {
+  background-color: #dce3ed;
+}
+
+.item-icon {
+  width: 50%;
+  height: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.icon-active {
+  border: 2px solid purple;
+}
+
+.numpad {
+  width: 100%;
+  height: auto;
+  line-height: 0;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  max-height: 350px;
+  height: 100%;
+}
+
+.numpad-button {
+  font-size: 35px;
+
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  color: #0072e3;
+  cursor: pointer;
+  margin: 5px;
+  background-color: #eaeef4;
+}
+
+.numpad-button:hover {
+  background-color: #dce3ed;
+}
+
+/* new game */
+.new-game-button {
+  border: none;
+  height: 60px;
+  border-radius: 5px;
+  background-color: #0072e3;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+
+.notes {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0;
+}
+
+.note {
+  line-height: 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.new-game-button:hover {
+  background-color: #0065c8;
+}
+
+.pauseScreen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: 20%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("./img/play-button-arrowhead.png");
+  cursor: pointer;
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+/* don't change order */
+
+.highlight {
+  background-color: var(--cell-highlight);
+}
+
+.similar {
+  background-color: var(--cell-similar);
+}
+
+.invalid {
+  background-color: var(--cell-invalid);
+  color: var(--cell-invalid-color);
+}
+
+.selected {
+  background-color: var(--cell-selected);
+}
+
+.locked {
+  color: var(--cell-locked);
+}
+
+.hidden {
+  display: none;
+}
+
+.no-background {
+  background-color: var(--cell-background-color);
+}
+
+@media screen and (max-width: 800px) {
+  .sudoku-wrapper {
+    max-width: 500px;
+    margin: 50px auto 20px;
+  }
+  .game-wrapper {
+    flex-direction: column;
+    max-height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button,
+  input[type="submit"],
+  input[type="reset"] {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+  .sudoku-game {
+    height: 500px;
+  }
+
+  .numpad {
+    display: flex;
+    justify-content: space-between;
+  }
+  .numpad-button {
+    background: none;
+    font-size: 40px;
+  }
+
+  .numpad-button:hover {
+    background-color: none;
+  }
+}

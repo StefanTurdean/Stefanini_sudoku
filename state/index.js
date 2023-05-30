@@ -11,6 +11,7 @@ const HISTORY_VALUE_KEY = {
 class State {
   #currentCell;
   #currentCellContent;
+  #currentCellPosition;
   #isGameRunning;
   notesIsActive;
   gameHistory;
@@ -31,6 +32,7 @@ class State {
 
   set currentCell(cell) {
     this.#currentCell = cell;
+    this.#currentCellPosition = this.getCellPosition(cell);
     this.#currentCellContent = cell.children[0];
 
     highlightCells(this.cells, this.#currentCell);
@@ -49,6 +51,10 @@ class State {
     }
 
     this.toggleCellsContent(this.#isGameRunning);
+  }
+
+  get currentCellPosition() {
+    return this.#currentCellPosition;
   }
 
   get isGameRunning() {

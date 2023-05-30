@@ -1,4 +1,5 @@
-import { TIMER_CLASS_NAME } from "../constants.js";
+import { ELEMENT_ID, TIMER_CLASS_NAME } from "../constants.js";
+import { handleTimerClick } from "../services/eventHandler.service.js";
 import { formatTimer } from "../services/formatTime.service.js";
 import { createDomElement } from "../services/layout.service.js";
 import state from "../state/index.js";
@@ -33,13 +34,13 @@ function createTimeWrapper(parentElement) {
   );
 
   timerBackground.addEventListener("click", () => {
-    state.isGameRunning = !state.isGameRunning;
+    handleTimerClick();
   });
 
   const timerIcon = createDomElement(
     "div",
-    TIMER_CLASS_NAME.icon,
-    "",
+    TIMER_CLASS_NAME.pause,
+    ELEMENT_ID.timerIcon,
     timerBackground
   );
 }

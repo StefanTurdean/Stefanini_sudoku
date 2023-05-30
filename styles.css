@@ -1,3 +1,21 @@
+:root {
+  --time-span-color: #94a3b7;
+  --font-bold: 600;
+  --icon-background: #eaeef4;
+  --icon-background-hover: #dce3ed;
+  --white: #fff;
+  --cell-color: #3070db;
+  --control-text-color: #0072e3;
+  --notes-after-background: #adb6c2;
+  --new-game-button-hover: #0065c8;
+
+  --highlight-basic: #e4ebf2;
+  --highlight-similar: #c2ddf8;
+  --highlight-invalid: #f1d0d6;
+  --highlight-invalid-text-color: #d5656f;
+  --highlight-selected: #96cfe2;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,110 +24,140 @@
 
 html,
 body {
-  height: 100%;
-  width: 100%;
-  font-family: "Helvetica", Sans-Serif;
+  font-family: Helvetica, Sans-Serif;
 }
 
 #app {
   width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 100vh;
 }
 
 .sudoku-wrapper {
-  width: 100%;
   height: 100%;
-  max-height: 540px;
-  max-width: 860px;
-
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.info {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
 }
 
 .timer-wrapper {
   width: 100%;
-  height: 100%;
-  max-height: 30px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 5px;
-  padding: 0 30px;
+}
+
+.timer-span {
+  color: var(--time-span-color);
+  font-weight: var(--font-bold);
 }
 
 .timer-background {
   width: 25px;
   height: 25px;
-  background: #eaeef4;
+  background: var(--icon-background);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  margin-right: 30px;
 }
 
 .timer-background:hover {
-  background-color: #dce3ed;
+  background-color: var(--icon-background-hover);
 }
 
-.timer-icon {
+#timer-icon {
   width: 75%;
   height: 75%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.timer-pause {
   background-image: url("/img/211871_pause_icon.png");
   background-size: contain;
-  background-position: center;
+}
+
+.timer-play {
+  background-image: url("./img/play-button-arrowhead.png");
+  background-size: 60%;
 }
 
 .game-wrapper {
   width: 100%;
   height: 100%;
   display: flex;
+  max-height: 500px;
 }
 
-/* sudoku grid */
 .sudoku-game {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  max-width: 510px;
-  max-height: 510px;
-  height: auto;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+
+  position: relative;
+
+  max-width: 500px;
+  max-height: 500px;
 }
 
 .square {
-  width: 100%;
-  height: 100%;
-  height: auto;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(3, 1fr);
   border: 0.5px solid black;
 }
 
 .cell {
-  width: 100%;
-  height: 100%;
-  width: 56px;
-  height: 56px;
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 40px;
   border: 0.5px solid lightgray;
-  background-color: #fff;
+  background-color: var(--white);
   text-align: center;
-  vertical-align: middle;
-  font-size: 30px;
-  color: #3070db;
+  color: var(--cell-color);
   cursor: pointer;
 }
 
-.controls {
+.cell-content {
+  margin: 0 auto;
+  line-height: 0;
+  width: 100%;
+}
+
+.notes {
   width: 100%;
   height: 100%;
-  max-width: 360px;
-  padding: 10px 20px 0;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.note {
+  text-align: center;
+  line-height: 0;
+  font-size: 14px;
+}
+
+.controls {
+  width: 85%;
+  height: 100%;
+
+  max-width: 340px;
+  margin-left: 20px;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -117,7 +165,8 @@ body {
 
 .items-wrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 5px;
 }
 
 .item {
@@ -125,23 +174,26 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #0072e3;
+  color: var(--control-text-color);
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .item-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eaeef4;
+  background-color: var(--icon-background);
   border-radius: 50%;
-  width: 75px;
-  height: 75px;
+  width: 60px;
+  height: 60px;
   cursor: pointer;
   margin-bottom: 5px;
+  border: 2px solid var(--icon-background);
 }
 
 .item-button:hover {
-  background-color: #dce3ed;
+  background-color: var(--icon-background-hover);
 }
 
 .item-icon {
@@ -149,6 +201,32 @@ body {
   height: 50%;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+#notes {
+  position: relative;
+}
+
+#notes::after {
+  position: absolute;
+  top: -18%;
+  left: 66%;
+  display: flex;
+  width: 30px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--notes-after-background);
+  border-radius: 50px;
+  color: var(--white);
+  content: "OFF";
+  font-weight: var(--font-bold);
+  transition: background-color 0.1s ease-in-out;
+}
+
+#notes.icon-active::after {
+  background-color: var(--control-text-color);
+  content: "ON";
 }
 
 .icon-active {
@@ -159,55 +237,47 @@ body {
   width: 100%;
   height: auto;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
   max-height: 350px;
   height: 100%;
+  margin-bottom: 15px;
 }
 
 .numpad-button {
-  font-size: 35px;
+  font-family: Helvetica, Sans-Serif;
+
+  font-size: 40px;
+  font-weight: 400;
 
   border: none;
   border-radius: 5px;
   text-align: center;
-  color: #0072e3;
+  color: var(--control-text-color);
   cursor: pointer;
-  margin: 5px;
-  background-color: #eaeef4;
+  margin: 4px;
+  background-color: var(--icon-background);
+
+  transition: background-color 0.1s ease-in-out;
 }
 
 .numpad-button:hover {
-  background-color: #dce3ed;
+  background-color: var(--icon-background-hover);
 }
 
-/* new game */
 .new-game-button {
+  font-family: Helvetica, Sans-Serif;
   border: none;
   height: 60px;
   border-radius: 5px;
-  background-color: #0072e3;
+  background-color: var(--control-text-color);
   font-size: 20px;
-  font-weight: 600;
-  color: #fff;
+  font-weight: var(--font-bold);
+  color: var(--white);
   cursor: pointer;
 }
 
-.notes {
-  width: 100%;
-  height: auto;
-  display: grid;
-  grid-template-columns: auto auto auto;
-  padding: 0;
-}
-
-.note {
-  width: 18px;
-  height: 18px;
-  font-size: 14px;
-}
-
 .new-game-button:hover {
-  background-color: #0065c8;
+  background-color: var(--new-game-button-hover);
 }
 
 .pauseScreen {
@@ -217,7 +287,7 @@ body {
   background-size: 20%;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url("./img/play-button-arrowhead.png");
+  background-image: url("./img/play-button.png");
   cursor: pointer;
   display: none;
 }
@@ -229,22 +299,95 @@ body {
 /* don't change order */
 
 .highlight {
-  background-color: #e4ebf2;
+  background-color: var(--highlight-basic);
 }
 
 .similar {
-  background-color: #c2ddf8;
+  background-color: var(--highlight-similar);
 }
 
 .invalid {
-  background-color: #f1d0d6;
-  color: #d5656f;
+  background-color: var(--highlight-invalid);
+  color: var(--highlight-invalid-text-color);
 }
 
 .selected {
-  background-color: #96cfe2;
+  background-color: var(--highlight-selected);
 }
 
 .locked {
   color: black;
+}
+
+.hidden {
+  display: none;
+}
+
+.no-background {
+  background-color: var(--cell-background-color);
+}
+
+@media screen and (max-width: 900px) {
+  .game-wrapper {
+    max-height: calc(100vw - 400px);
+  }
+
+  .cell {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .sudoku-wrapper {
+    max-width: 520px;
+  }
+
+  .game-wrapper {
+    display: block;
+    max-height: none;
+  }
+
+  .game-wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sudoku-game {
+    height: 100%;
+    margin-bottom: 20px;
+  }
+
+  .controls {
+    width: 100%;
+    margin: 0;
+    max-width: none;
+    height: auto;
+  }
+
+  .items-wrapper {
+    justify-content: space-around;
+  }
+
+  .numpad {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .numpad-button {
+    background: none;
+  }
+  .numpad-button:hover {
+    background: none;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .sudoku-game {
+    max-height: calc(100vw - 20px);
+  }
+
+  .cell {
+    font-size: 20px;
+  }
 }
