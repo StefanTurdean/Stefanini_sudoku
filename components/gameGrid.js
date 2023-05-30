@@ -1,6 +1,7 @@
 import { createDomElement } from "../services/layout.service.js";
 import { CLASS_NAME, ELEMENT_ID } from "../constants.js";
 import state from "../state/index.js";
+import { handlePauseScreenClick } from "../services/eventHandler.service.js";
 
 function idFormatter(idString) {
   const toFormat = [];
@@ -87,7 +88,7 @@ function createPauseScreen(parentElement) {
   );
 
   pauseScreen.addEventListener("click", () => {
-    state.isGameRunning = true;
+    handlePauseScreenClick();
   });
 }
 

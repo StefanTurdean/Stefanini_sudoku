@@ -145,3 +145,9 @@ export function handleTimerClick() {
   timeIcon.classList.toggle(TIMER_CLASS_NAME.play);
   state.isGameRunning = !state.isGameRunning;
 }
+export function handlePauseScreenClick() {
+  const timeIcon = document.getElementById(ELEMENT_ID.timerIcon);
+  timeIcon.classList.toggle(TIMER_CLASS_NAME.pause);
+  timeIcon.classList.toggle(TIMER_CLASS_NAME.play);
+  state.isGameRunning = !state.isGameRunning;
+}

@@ -205,7 +205,6 @@ class State {
         currentCell.dataset.notes
       );
 
-      console.log(historyItem[HISTORY_VALUE_KEY.notes]);
     } else {
       historyItem["key"] = HISTORY_VALUE_KEY.value;
       historyItem[HISTORY_VALUE_KEY.value] = this.currentCellContent.innerHTML;
